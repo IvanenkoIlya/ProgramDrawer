@@ -3,10 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProgramDrawer"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        mc:Ignorable="d" ShowInTaskbar="False"
+        Title="ProgramDrawer" Height="{Binding DesktopHeight}" Width="480" Top="0" Visibility="Visible"
+        AllowsTransparency="True" Background="Transparent" WindowStyle="None" Focusable="True" Name="MyWindow">
+    <DockPanel Width="480" Height="{Binding DesktopHeight}" Background="{DynamicResource DrawerBackgroundColorLight}" LastChildFill="True">
+        <DockPanel x:Name="ControlBar" Height="90" DockPanel.Dock="Bottom" Background="{DynamicResource DrawerBackgroundColorDark}">
+            <Button Style="{DynamicResource DrawerSettingButtonStyle}"/>
+            <Button Style="{DynamicResource DrawerSettingButtonStyle}"/>
+            <Button Style="{DynamicResource DrawerSettingButtonStyle}" HorizontalAlignment="Right"/>
+        </DockPanel>
+        <ProgressBar x:Name="DownloadProgressBar" Style="{DynamicResource ProgressBarStyle}" 
+                     DockPanel.Dock="Bottom" Minimum="0" Maximum="100" Value="50" Visibility="Collapsed"/>
+        <Grid DockPanel.Dock="Top">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0" 
+                              ItemTemplate="{DynamicResource ProgramItemTemplate}" 
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+            </ScrollViewer>
+            <TextBox Name="SearchBar" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Template="{DynamicResource SearchBarTemplate}" VerticalAlignment="Top" />
+        </Grid>
+    </DockPanel>
 </Window>

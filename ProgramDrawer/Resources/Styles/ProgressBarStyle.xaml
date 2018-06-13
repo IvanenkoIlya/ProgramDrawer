@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="ProgressBar" x:Key="ProgressBarStyle">
+        <Style.Resources>
+            <Color x:Key="ProgressBarForegroundLight">#FF007ACB</Color>
+            <Color x:Key="ProgressBarForegroundDark">#FF005A9B</Color>
+        </Style.Resources>
+        <Setter Property="Foreground">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource ProgressBarForegroundLight}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="2,2,2,2" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Grid MinHeight="5" MinWidth="100">
+                        <Border x:Name="PART_Track" BorderThickness="0"/>
+
+                        <Border x:Name="PART_Indicator"
+                                CornerRadius="2"
+                                HorizontalAlignment="Left"
+                                Background="{TemplateBinding Foreground}">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource ProgressBarForegroundLight}" />
+                            </Border.BorderBrush>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+                                <Rectangle Grid.Column="1" RadiusX="2" RadiusY="2">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Offset="0" Color="{DynamicResource ProgressBarForegroundLight}" />
+                                            <GradientStop Offset="0.5" Color="{DynamicResource ProgressBarForegroundDark}" />
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
