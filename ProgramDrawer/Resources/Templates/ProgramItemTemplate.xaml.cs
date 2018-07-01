@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProgramDrawer.ViewModel;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
@@ -15,11 +16,6 @@ namespace ProgramDrawer.Resources.Templates
         public virtual void LaunchProgram(object sender, RoutedEventArgs e)
         {
             ((sender as Rectangle).Tag as ProgramItem).LaunchProgram(sender, e);
-        }
-
-        private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Console.WriteLine("Edit click test");
         }
     }
 }

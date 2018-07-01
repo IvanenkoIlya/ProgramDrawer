@@ -56,12 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ProgramItem.cs" />
     <Compile Include="Resources\Templates\ProgramItemTemplate.xaml.cs">
       <DependentUpon>ProgramItemTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="SteamBannerDownloader.cs" />
     <Compile Include="UserSettings.cs" />
+    <Compile Include="ViewModel\ObservableObject.cs" />
+    <Compile Include="ViewModel\ProgramItem.cs" />
+    <Compile Include="ViewModel\SteamItem.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
