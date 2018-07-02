@@ -1,5 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Media;
+﻿using MahApps.Metro;
+using System;
+using System.Windows;
 
 namespace ProgramDrawer
 {
@@ -8,6 +9,11 @@ namespace ProgramDrawer
     /// </summary>
     public partial class App : Application
     {
-        public static UserSettings UserSettings;
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ThemeManager.ChangeAppStyle(Application.Current, ThemeManager.GetAccent("Blue"), ThemeManager.GetAppTheme("BaseDark"));
+
+            base.OnStartup(e);
+        }
     }
 }

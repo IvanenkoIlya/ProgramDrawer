@@ -33,9 +33,9 @@ namespace ProgramDrawer
         {
             if (!worker.IsBusy)
             {
-                window.DownloadProgressBar.Value = 0;
-                window.DownloadProgressBar.Maximum = appIDs.Count;
-                window.DownloadProgressBar.Visibility = Visibility.Visible;
+                //window.DownloadProgressBar.Value = 0;
+                //window.DownloadProgressBar.Maximum = appIDs.Count;
+                //window.DownloadProgressBar.Visibility = Visibility.Visible;
 
                 worker.RunWorkerAsync();
             }
@@ -49,7 +49,7 @@ namespace ProgramDrawer
             {
                 for(int i = 0; i < appIDs.Count;)
                 {
-                    client.DownloadFile($@"https://steamcdn-a.opskins.media/steam/apps/{appIDs[i]}/header.jpg", $@"Resources\ProgramBanners\{appIDs[i]}.jpg");
+                    //client.DownloadFile($@"https://steamcdn-a.opskins.media/steam/apps/{appIDs[i]}/header.jpg", $@"Resources\ProgramBanners\{appIDs[i]}.jpg");
                     worker.ReportProgress(++i);
                 }
             }
@@ -62,12 +62,12 @@ namespace ProgramDrawer
                 EasingFunction = new SineEase()
             };
 
-            window.DownloadProgressBar.ApplyAnimationClock(ProgressBar.ValueProperty, da.CreateClock());
+            //window.DownloadProgressBar.ApplyAnimationClock(ProgressBar.ValueProperty, da.CreateClock());
         }
 
         private void Worker_Completed(object sender, RunWorkerCompletedEventArgs e)
         {
-            window.DownloadProgressBar.Visibility = Visibility.Collapsed;
+            //window.DownloadProgressBar.Visibility = Visibility.Collapsed;
         }
     }
 }

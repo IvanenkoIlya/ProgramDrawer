@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ProgramDrawer.UserControls.SettingsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:ProgramDrawer.UserControls"
+             mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="600">
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Theme type" FontSize="14" HorizontalAlignment="Left"/>
+            <Controls:ToggleSwitch Grid.Column="1" OnLabel="Dark" OffLabel="Light" Width="85" Margin="0,5,0,0" HorizontalAlignment="Left"
+                               Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" IsChecked="{Binding DarkTheme}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Toggle setting" FontSize="14" HorizontalAlignment="Left"/>
+            <Controls:ToggleSwitch Grid.Column="1" OnLabel="On" OffLabel="Off" Width="85" Margin="0,5,0,5" HorizontalAlignment="Left"
+                               Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="115"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Accent color" FontSize="14" HorizontalAlignment="Left"/>
+            <Controls:SplitButton Grid.Column="1" Height="10" Width="100" ArrowBrush="{DynamicResource AccentColorBrush}" BorderBrush="{DynamicResource AccentColorBrush}"
+                              ItemsSource="{Binding Accents}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedAccent}" HorizontalAlignment="Left"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Apply" Style="{DynamicResource MetroFlatButton}" Height="20" Width="50" FontSize="13" Padding="0,0,0,0" 
+                Click="ApplySettings"/>
+            <Button Content="Cancel" Style="{DynamicResource MetroFlatButton}" Height="20" Width="50" FontSize="13" Padding="0,0,0,0"
+                Click="CancelSettings"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
