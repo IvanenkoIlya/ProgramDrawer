@@ -6,34 +6,16 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:ProgramDrawer.UserControls"
              mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="600">
-    <StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Theme type" FontSize="14" HorizontalAlignment="Left"/>
-            <Controls:ToggleSwitch Grid.Column="1" OnLabel="Dark" OffLabel="Light" Width="85" Margin="0,5,0,0" HorizontalAlignment="Left"
-                               Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" IsChecked="{Binding DarkTheme}"/>
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Toggle setting" FontSize="14" HorizontalAlignment="Left"/>
-            <Controls:ToggleSwitch Grid.Column="1" OnLabel="On" OffLabel="Off" Width="85" Margin="0,5,0,5" HorizontalAlignment="Left"
+    <StackPanel Margin="20,10,20,10">
+        <Label Content="Settings" FontSize="25" FontWeight="Bold" Padding="0,0,0,0"/>
+        <Separator Background="{DynamicResource AccentColorBrush}"/>
+        <Controls:ToggleSwitch Header="Theme type" OnLabel="Dark" OffLabel="Light" Margin="0,5,0,0" HorizontalAlignment="Left"
+                               Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" IsChecked="{Binding DarkTheme}" />
+        <Controls:ToggleSwitch Header="Toggle setting" OnLabel="On" OffLabel="Off" Margin="0,5,0,5" HorizontalAlignment="Left"
                                Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
-        </Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="115"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Content="Accent color" FontSize="14" HorizontalAlignment="Left"/>
-            <Controls:SplitButton Grid.Column="1" Height="10" Width="100" ArrowBrush="{DynamicResource AccentColorBrush}" BorderBrush="{DynamicResource AccentColorBrush}"
+        <Label FontSize="15" Content="Accent color" Padding="0,0,0,2"/>
+        <Controls:SplitButton Height="10" Width="100" ArrowBrush="{DynamicResource AccentColorBrush}" BorderBrush="{DynamicResource AccentColorBrush}"
                               ItemsSource="{Binding Accents}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedAccent}" HorizontalAlignment="Left"/>
-        </Grid>
         <StackPanel Orientation="Horizontal">
             <Button Content="Apply" Style="{DynamicResource MetroFlatButton}" Height="20" Width="50" FontSize="13" Padding="0,0,0,0" 
                 Click="ApplySettings"/>

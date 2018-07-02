@@ -16,8 +16,11 @@ namespace ProgramDrawer.UserControls
 
         public SettingsControl()
         {
-            settings = new Settings();
-        
+            settings = new Settings()
+            {
+                SelectedAccent = ThemeManager.DetectAppStyle(Application.Current).Item2
+            };   
+            
             DataContext = settings;
             InitializeComponent();
         }
