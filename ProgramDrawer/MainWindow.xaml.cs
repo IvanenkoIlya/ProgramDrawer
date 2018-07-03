@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using ProgramDrawer.UserControls;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -44,7 +45,7 @@ namespace ProgramDrawer
             AllowsTransparency = true;
             MyFlyout.ClosingFinished += (sender, e) => { _closing = false; };
 
-            //MainContentControl.Content = new ProgramListControl();
+            MainContentControl.Content = new ProgramListControl();
         }
 
         private WinForms.NotifyIcon SetupNotifyIcon()
@@ -103,5 +104,15 @@ namespace ProgramDrawer
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
+
+        private bool toggle;
+        private void UniversalTestButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (toggle)
+                MainContentControl.Content = new ProgramListControl();
+            else
+                MainContentControl.Content = new SettingsControl();
+            toggle = !toggle;
+        }
     }
 }

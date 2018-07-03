@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media.Animation;
 
 namespace ProgramDrawer.UserControls
 {
@@ -27,14 +30,14 @@ namespace ProgramDrawer.UserControls
 
                 if (_searchString == "")
                 {
-                    //SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
-                    //    new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
+                    SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
+                        new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
                     return;
                 }
                 else
                 {
-                    //SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
-                    //    new ThicknessAnimation(new Thickness(10, 10, 10, 0), TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
+                    SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
+                        new ThicknessAnimation(new Thickness(10, 10, 10, 0), TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
                     return;
                 }
             }
