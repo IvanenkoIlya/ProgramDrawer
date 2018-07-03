@@ -11,12 +11,28 @@
         <!--<ProgressBar x:Name="DownloadProgressBar" Style="{DynamicResource ProgressBarStyle}" 
                      DockPanel.Dock="Bottom" Minimum="0" Maximum="100" Value="50" Visibility="Collapsed"/>-->
         <Grid>
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0" 
-                               
+            <StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0" 
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-            </ScrollViewer>
-            <TextBox x:Name="SearchBar" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                </ScrollViewer>
+                <Grid Height="215" Width="460" Opacity="0.5" MouseLeftButtonDown="">
+                    <Grid.Resources>
+                        <ResourceDictionary Source="/Resources/Icons.xaml" />
+                    </Grid.Resources>
+                    <Rectangle Name="AddNewProgramButton" RadiusX="10" RadiusY="10" Margin="10,5,10,5"
+                       Stroke="{DynamicResource AccentColorBrush}" StrokeThickness="3" StrokeDashArray="5 5" />
+                    <Rectangle Width="80" Height="80" Margin="190,50,190,85" Fill="{DynamicResource AccentColorBrush}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Visual="{StaticResource appbar_add}"/>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Label Content="Add new program" Foreground="{DynamicResource AccentColorBrush}" FontSize="15"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="165,135,165,50" />
+                </Grid>
+            </StackPanel>
+
+            <TextBox x:Name="SearchBar" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"
                      VerticalAlignment="Top" Template="{DynamicResource SearchBarTemplate}" >
                 <TextBox.Resources>
                     <ControlTemplate TargetType="TextBox" x:Key="SearchBarTemplate">

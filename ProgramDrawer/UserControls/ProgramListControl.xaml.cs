@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 
 namespace ProgramDrawer.UserControls
@@ -16,7 +18,6 @@ namespace ProgramDrawer.UserControls
         public ListCollectionView ProgramItems;
 
         private string _searchString = "";
-
         public string SearchString
         {
             get { return _searchString; }
@@ -26,17 +27,17 @@ namespace ProgramDrawer.UserControls
                     return;
 
                 _searchString = value;
-                ProgramItems.Refresh();
+                //ProgramItems.Refresh();
 
                 if (_searchString == "")
                 {
-                    SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
+                    SearchBar.ApplyAnimationClock(MarginProperty,
                         new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
                     return;
                 }
                 else
                 {
-                    SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
+                    SearchBar.ApplyAnimationClock(MarginProperty,
                         new ThicknessAnimation(new Thickness(10, 10, 10, 0), TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
                     return;
                 }
@@ -45,18 +46,39 @@ namespace ProgramDrawer.UserControls
 
         public ProgramListControl()
         {
+            DataContext = this;
             InitializeComponent();
 
-            SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
+            EventManager.RegisterClassHandler(typeof(Window), Keyboard.KeyDownEvent, new KeyEventHandler(KeyDown), true);
+            SearchBar.ApplyAnimationClock(MarginProperty,
                 new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(10)).CreateClock());
+
+            PopulateProgramList();
         }
 
-        private new void KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void PopulateProgramList()
         {
-            if (e.Key == System.Windows.Input.Key.Escape)
+            if (File.Exists(""))
+            {
+                // TODO Load existing list from file
+            }
+            else
+            {
+                
+            }
+        }
+
+        private new void KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
                 SearchBar.Text = "";
             else
-                System.Windows.Input.Keyboard.Focus(SearchBar);
+                Keyboard.Focus(SearchBar);
+        }
+
+        private void CreateNewProgramItem(object sender, MouseButtonEventArgs e)
+        {
+            // TODO Create a new Program Item
         }
     }
 }
