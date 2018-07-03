@@ -1,10 +1,11 @@
-﻿<UserControl
+﻿<UserControl x:Class="ProgramDrawer.UserControls.ProgramListControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProgramDrawer.UserControls"
-             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:mah1="http://metro.mahapps.com/winfx/xaml/shared" x:Class="ProgramDrawer.UserControls.ProgramListControl"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+             xmlns:mah1="http://metro.mahapps.com/winfx/xaml/shared"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="480">
     <Grid>
@@ -16,12 +17,33 @@
                     <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0" 
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
                 </ScrollViewer>
-                <Grid Height="215" Width="460" Opacity="0.5" MouseLeftButtonDown="">
+                <Grid Height="215" Width="460" Opacity="0.5">
+                    <Grid.Triggers>
+                        <EventTrigger RoutedEvent="ButtonBase.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation From="0.5" To="0.9"
+                                                 Duration="0:0:0.200"
+                                                 Storyboard.TargetProperty="Opacity"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="ButtonBase.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation From="0.9" To="0.5"
+                                                 Duration="0:0:0.200"
+                                                 Storyboard.TargetProperty="Opacity"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Grid.Triggers>
                     <Grid.Resources>
                         <ResourceDictionary Source="/Resources/Icons.xaml" />
                     </Grid.Resources>
-                    <Rectangle Name="AddNewProgramButton" RadiusX="10" RadiusY="10" Margin="10,5,10,5"
-                       Stroke="{DynamicResource AccentColorBrush}" StrokeThickness="3" StrokeDashArray="5 5" />
+                    <Rectangle Name="AddNewProgramButton" RadiusX="10" RadiusY="10" Margin="10,5,10,5" Fill="Transparent"
+                       Stroke="{DynamicResource AccentColorBrush}" StrokeThickness="3" StrokeDashArray="5 5">
+                    </Rectangle>
                     <Rectangle Width="80" Height="80" Margin="190,50,190,85" Fill="{DynamicResource AccentColorBrush}">
                         <Rectangle.OpacityMask>
                             <VisualBrush Visual="{StaticResource appbar_add}"/>
