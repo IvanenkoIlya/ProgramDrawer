@@ -82,14 +82,6 @@ namespace ProgramDrawer
                 .ToList();
         }
 
-        private new void KeyDown(object sender, KeyEventArgs e)
-        {
-            //if (e.Key == Key.Escape)
-            //    //SearchBar.Text = "";
-            //else
-            //Keyboard.Focus(SearchBar);
-        }
-
         private string _steamDirectory;
         public string SteamDirectory
         {

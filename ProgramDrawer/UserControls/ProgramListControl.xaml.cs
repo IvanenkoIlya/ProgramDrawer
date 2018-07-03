@@ -46,6 +46,17 @@ namespace ProgramDrawer.UserControls
         public ProgramListControl()
         {
             InitializeComponent();
+
+            SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
+                new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(10)).CreateClock());
+        }
+
+        private new void KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Escape)
+                SearchBar.Text = "";
+            else
+                System.Windows.Input.Keyboard.Focus(SearchBar);
         }
     }
 }
