@@ -2,7 +2,6 @@
 using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
 using WinForms = System.Windows.Forms;
 
 namespace ProgramDrawer
@@ -14,17 +13,14 @@ namespace ProgramDrawer
     {
         public double DesktopHeight { get; private set; } = SystemParameters.WorkArea.Height;
 
-        private bool _closing = false;
         private bool _first = true;
+        private bool _closing = false;
         WinForms.NotifyIcon notifyIcon;
 
         private bool _isDrawerOpen = false;
         public bool IsDrawerOpen
         {
-            get
-            {
-                return _isDrawerOpen;
-            }
+            get { return _isDrawerOpen; }
 
             set
             {
