@@ -79,6 +79,7 @@ namespace ProgramDrawer.UserControls
         private void CreateNewProgramItem(object sender, MouseButtonEventArgs e)
         {
             // TODO Create a new Program Item
+            AddProgramGrid.Children.Add(new AddProgramControl());
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using ProgramDrawer.UserControls;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using WinForms = System.Windows.Forms;
 
 namespace ProgramDrawer
@@ -17,6 +20,8 @@ namespace ProgramDrawer
         private bool _first = true;
         private bool _closing = false;
         WinForms.NotifyIcon notifyIcon;
+
+        private Dictionary<string, UserControl> mainContents;
 
         private bool _isDrawerOpen = false;
         public bool IsDrawerOpen
@@ -39,13 +44,17 @@ namespace ProgramDrawer
             InitializeComponent();
 
             notifyIcon = SetupNotifyIcon();
+            mainContents = new Dictionary<string, UserControl>();
 
             Left = SystemParameters.WorkArea.Width-480;
 
             AllowsTransparency = true;
             MyFlyout.ClosingFinished += (sender, e) => { _closing = false; };
 
-            MainContentControl.Content = new ProgramListControl();
+            mainContents.Add("ProgramList", new ProgramListControl());
+            mainContents.Add("Settings", new SettingsControl());
+
+            MainContentControl.Content = mainContents["ProgramList"];
         }
 
         private WinForms.NotifyIcon SetupNotifyIcon()
@@ -97,6 +106,12 @@ namespace ProgramDrawer
             base.OnClosing(e);
         }
 
+        private void SetStartup()
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            rk.SetValue("ProgramDrawer", System.Windows.Forms.Application.ExecutablePath);
+        }
+
         #region Property Changed event handler
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
@@ -109,9 +124,9 @@ namespace ProgramDrawer
         private void UniversalTestButtonClick(object sender, RoutedEventArgs e)
         {
             if (toggle)
-                MainContentControl.Content = new ProgramListControl();
+                MainContentControl.Content = mainContents["ProgramList"];
             else
-                MainContentControl.Content = new SettingsControl();
+                MainContentControl.Content = mainContents["Settings"];
             toggle = !toggle;
         }
     }

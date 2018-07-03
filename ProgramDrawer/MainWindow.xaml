@@ -23,7 +23,7 @@
                         <Button Name="UniversalTestButton" Content="Universal Test Button" Click="UniversalTestButtonClick"/>
                     </Grid>
                     <Grid DockPanel.Dock="Top">
-                        <Controls:TransitioningContentControl Name="MainContentControl" Transition="RightReplace" />
+                        <Controls:TransitioningContentControl Name="MainContentControl" Transition="LeftReplace" />
                     </Grid>
                 </DockPanel>
             </Controls:Flyout>

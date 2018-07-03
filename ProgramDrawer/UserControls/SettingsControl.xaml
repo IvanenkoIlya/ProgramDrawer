@@ -16,11 +16,12 @@
         <Label FontSize="15" Content="Accent color" Padding="0,0,0,2"/>
         <Controls:SplitButton Height="10" Width="100" ArrowBrush="{DynamicResource AccentColorBrush}" BorderBrush="{DynamicResource AccentColorBrush}"
                               ItemsSource="{Binding Accents}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedAccent}" HorizontalAlignment="Left"/>
-        <TextBox />
+        <Separator Background="{DynamicResource AccentColorBrush}" Margin="0,5,0,5" />
+
         <StackPanel Orientation="Horizontal">
-            <Button Content="Apply" Style="{DynamicResource MetroFlatButton}" Height="20" Width="50" FontSize="13" Padding="0,0,0,0" 
-                Click="ApplySettings"/>
-            <Button Content="Cancel" Style="{DynamicResource MetroFlatButton}" Height="20" Width="50" FontSize="13" Padding="0,0,0,0"
+            <Button Content="Apply" Style="{DynamicResource SquareButtonStyle}"  Height="20" Width="50" FontSize="13" Padding="0,0,0,0" 
+                Click="ApplySettings" />
+            <Button Content="Cancel" Style="{DynamicResource SquareButtonStyle}" Height="20" Width="50" FontSize="13" Margin="5,0,0,0" Padding="0,0,0,0"
                 Click="CancelSettings"/>
         </StackPanel>
     </StackPanel>
