@@ -7,21 +7,26 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	    xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
         mc:Ignorable="d" ShowInTaskbar="False"
-        Title="ProgramDrawer" Height="{Binding DesktopHeight}" Width="480" MaxWidth="480" Top="0" Visibility="Visible"
-        ShowTitleBar="False" ResizeMode="NoResize" ShowCloseButton="False" BorderThickness="0"
-        AllowsTransparency="True" Focusable="True" Name="MyWindow" >
+        Title="ProgramDrawer" Height="{Binding DesktopHeight}" Width="480" MaxWidth="480" Top="0" 
+        ShowTitleBar="False" ResizeMode="NoResize" ShowCloseButton="False" BorderThickness="0" 
+        WindowStyle="None" Focusable="True" Name="MyWindow" Background="Transparent">
     <i:Interaction.Behaviors>
         <Behaviours:BorderlessWindowBehavior />
     </i:Interaction.Behaviors>
 
-    <DockPanel Width="480" Height="{Binding DesktopHeight}" LastChildFill="True">
-        <DockPanel x:Name="ControlBar" Height="90" DockPanel.Dock="Bottom" >
-            <Button />
-            <Button />
-            <Button HorizontalAlignment="Right"/>
-        </DockPanel>
-        <Grid DockPanel.Dock="Top">
-            <Controls:TransitioningContentControl Name="MainContentControl" Transition="RightReplace" />
-        </Grid>
-    </DockPanel>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="Title" Position="Right" Width="480" Theme="Dark" Name="MyFlyout" IsOpen="{Binding IsDrawerOpen}" 
+                             CloseButtonVisibility="Collapsed" TitleVisibility="Collapsed" >
+                <DockPanel Width="480" Height="{Binding DesktopHeight}" LastChildFill="True">
+                    <Grid x:Name="NavigationBar" Height="90" DockPanel.Dock="Bottom" >
+                        <Controls:MetroAnimatedTabControl />
+                    </Grid>
+                    <Grid DockPanel.Dock="Top">
+                        <Controls:TransitioningContentControl Name="MainContentControl" Transition="RightReplace" />
+                    </Grid>
+                </DockPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
 </Controls:MetroWindow>

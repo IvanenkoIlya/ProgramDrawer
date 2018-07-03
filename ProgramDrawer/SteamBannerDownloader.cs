@@ -1,10 +1,14 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media.Animation;
 
 namespace ProgramDrawer
@@ -68,6 +72,40 @@ namespace ProgramDrawer
         private void Worker_Completed(object sender, RunWorkerCompletedEventArgs e)
         {
             //window.DownloadProgressBar.Visibility = Visibility.Collapsed;
+        }
+
+        private List<int> GetInstalledSteamAppIds(string steamInstallLocation)
+        {
+            return Directory.EnumerateFiles(steamInstallLocation + @"\steamapps")
+                .Where(f => Regex.Match(Path.GetFileName(f), @"appmanifest_(\d*).acf").Success) // Could likely optimize into one linq statement?
+                .Select(f => Int32.Parse(Regex.Match(Path.GetFileName(f), @"appmanifest_(\d*).acf").Groups[1].Value))
+                .ToList();
+        }
+
+        private new void KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.Key == Key.Escape)
+            //    //SearchBar.Text = "";
+            //else
+            //Keyboard.Focus(SearchBar);
+        }
+
+        private string _steamDirectory;
+        public string SteamDirectory
+        {
+            get
+            {
+                if (_steamDirectory == null)
+                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam"))
+                    {
+                        if (key != null)
+                        {
+                            _steamDirectory = key.GetValue("SteamPath").ToString().Replace("/", @"\");
+                        }
+                    }
+
+                return _steamDirectory;
+            }
         }
     }
 }

@@ -21,5 +21,9 @@ namespace ProgramDrawer.Resources.Templates
         {
             Console.WriteLine("Edit click test");
         }
+
+        // To open taskbar settings: Process.Start("ms-settings:taskbar");
+        // To start steam app: Process.Start($@"steam://rungameid/105600"); 
+        //Keyboard.Focus(SearchBar); This might when drawer is reactivated to return keyboard control to program
     }
 }

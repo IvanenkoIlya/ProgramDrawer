@@ -1,20 +1,8 @@
 ﻿using MahApps.Metro.Controls;
-using Microsoft.Win32;
-using ProgramDrawer.UserControls;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using Drawing = System.Drawing;
 using WinForms = System.Windows.Forms;
 
 namespace ProgramDrawer
@@ -22,35 +10,13 @@ namespace ProgramDrawer
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
-        private readonly int ANIMATION_TIME = 350;
-
-        WinForms.NotifyIcon notifyIcon;
+        public double DesktopHeight { get; private set; } = SystemParameters.WorkArea.Height;
 
         private bool _closing = false;
         private bool _first = true;
-        public double DesktopHeight { get; private set; } = SystemParameters.WorkArea.Height;
-
-
-        private SteamBannerDownloader sbd;
-        private string _steamDirectory;
-        public string SteamDirectory
-        {
-            get
-            {
-                if (_steamDirectory == null)
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam"))
-                    {
-                        if (key != null)
-                        {
-                            _steamDirectory = key.GetValue("SteamPath").ToString().Replace("/", @"\");
-                        }
-                    }
-                        
-                return _steamDirectory;
-            }
-        }
+        WinForms.NotifyIcon notifyIcon;
 
         private bool _isDrawerOpen = false;
         public bool IsDrawerOpen
@@ -66,26 +32,7 @@ namespace ProgramDrawer
                     return;
 
                 _isDrawerOpen = value;
-
-                if(_isDrawerOpen)
-                {
-                    Visibility = Visibility.Visible;
-
-                    ApplyAnimationClock(Window.LeftProperty,
-                        new DoubleAnimation(SystemParameters.WorkArea.Width - 480, TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
-                    return;
-                }
-                else
-                {
-                    DoubleAnimation da = new DoubleAnimation(SystemParameters.WorkArea.Width, TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() };
-                    da.Completed += (sender, args) =>
-                    {
-                        Visibility = Visibility.Collapsed;
-                        _closing = false;
-                    };
-                    ApplyAnimationClock(Window.LeftProperty, da.CreateClock());
-                    return;
-                }
+                OnPropertyChanged("IsDrawerOpen");
             }
         }
 
@@ -96,14 +43,12 @@ namespace ProgramDrawer
 
             notifyIcon = SetupNotifyIcon();
 
-            Left = SystemParameters.WorkArea.Width;
+            Left = SystemParameters.WorkArea.Width-480;
 
-            EventManager.RegisterClassHandler(typeof(Window), Keyboard.KeyDownEvent, new KeyEventHandler(KeyDown), true);
+            AllowsTransparency = true;
+            MyFlyout.ClosingFinished += (sender, e) => { _closing = false; };
 
-            MainContentControl.Content = new ProgramListControl();
-            
-            // To open taskbar settings: Process.Start("ms-settings:taskbar");
-            // To start steam app: Process.Start($@"steam://rungameid/105600"); 
+            //MainContentControl.Content = new ProgramListControl();
         }
 
         private WinForms.NotifyIcon SetupNotifyIcon()
@@ -126,21 +71,12 @@ namespace ProgramDrawer
                     {
                         Activate();
                         IsDrawerOpen = !IsDrawerOpen;
-                        //Keyboard.Focus(SearchBar);
                     }
                     _closing = false;
                 }
             };
 
             return ni;
-        }
-
-        private new void KeyDown(object sender, KeyEventArgs e)
-        {
-            //if (e.Key == Key.Escape)
-            //    //SearchBar.Text = "";
-            //else
-                //Keyboard.Focus(SearchBar);
         }
 
         protected override void OnDeactivated(EventArgs e)
@@ -164,19 +100,12 @@ namespace ProgramDrawer
             base.OnClosing(e);
         }
 
-        private List<int> GetOwnedSteamAppIds(string steamUserName)
+        #region Property Changed event handler
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
         {
-            // TODO Steam Web API stuff
-
-            return new List<int>();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        private List<int> GetInstalledSteamAppIds(string steamInstallLocation)
-        {
-            return Directory.EnumerateFiles(steamInstallLocation + @"\steamapps")
-                .Where(f => Regex.Match(Path.GetFileName(f), @"appmanifest_(\d*).acf").Success) // Could likely optimize into one linq statement?
-                .Select(f => Int32.Parse(Regex.Match(Path.GetFileName(f), @"appmanifest_(\d*).acf").Groups[1].Value))
-                .ToList();
-        }
+        #endregion
     }
 }
