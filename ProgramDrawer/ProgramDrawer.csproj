@@ -70,6 +70,9 @@
       <DependentUpon>ProgramItemTemplate.xaml</DependentUpon>
     </Compile>
     <Compile Include="SteamBannerDownloader.cs" />
+    <Compile Include="UserControls\ProgramListControl.xaml.cs">
+      <DependentUpon>ProgramListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Templates\SearchBarTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ProgramListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -28,41 +28,13 @@ namespace ProgramDrawer
 
         WinForms.NotifyIcon notifyIcon;
 
-        private SteamBannerDownloader sbd;
         private bool _closing = false;
         private bool _first = true;
+        public double DesktopHeight { get; private set; } = SystemParameters.WorkArea.Height;
+
+
+        private SteamBannerDownloader sbd;
         private string _steamDirectory;
-        private List<ProgramItem> _programItems;
-        public ListCollectionView ProgramItems;
-
-        private string _searchString = "";
-
-        public string SearchString
-        {
-            get { return _searchString; }
-            set
-            {
-                if (value == _searchString)
-                    return;
-
-                _searchString = value;
-                ProgramItems.Refresh();
-
-                if(_searchString == "")
-                {
-                    //SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
-                    //    new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
-                    return;
-                }
-                else
-                {
-                    //SearchBar.ApplyAnimationClock(TextBox.MarginProperty,
-                    //    new ThicknessAnimation(new Thickness(10, 10, 10, 0), TimeSpan.FromMilliseconds(350)) { EasingFunction = new SineEase() }.CreateClock());
-                    return;
-                }
-            }
-        }
-
         public string SteamDirectory
         {
             get
@@ -79,8 +51,6 @@ namespace ProgramDrawer
                 return _steamDirectory;
             }
         }
-
-        public double DesktopHeight { get; private set; } = SystemParameters.WorkArea.Height;
 
         private bool _isDrawerOpen = false;
         public bool IsDrawerOpen
@@ -130,7 +100,7 @@ namespace ProgramDrawer
 
             EventManager.RegisterClassHandler(typeof(Window), Keyboard.KeyDownEvent, new KeyEventHandler(KeyDown), true);
 
-            MainContentControl.Content = new SettingsControl();
+            MainContentControl.Content = new ProgramListControl();
             
             // To open taskbar settings: Process.Start("ms-settings:taskbar");
             // To start steam app: Process.Start($@"steam://rungameid/105600"); 

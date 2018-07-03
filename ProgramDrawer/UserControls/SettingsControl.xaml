@@ -8,7 +8,7 @@
              mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="600">
     <StackPanel Margin="20,10,20,10">
         <Label Content="Settings" FontSize="25" FontWeight="Bold" Padding="0,0,0,0"/>
-        <Separator Background="{DynamicResource AccentColorBrush}"/>
+        <Separator Background="{DynamicResource AccentColorBrush}" Margin="0,5,0,2" />
         <Controls:ToggleSwitch Header="Theme type" OnLabel="Dark" OffLabel="Light" Margin="0,5,0,0" HorizontalAlignment="Left"
                                Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" IsChecked="{Binding DarkTheme}" />
         <Controls:ToggleSwitch Header="Toggle setting" OnLabel="On" OffLabel="Off" Margin="0,5,0,5" HorizontalAlignment="Left"
