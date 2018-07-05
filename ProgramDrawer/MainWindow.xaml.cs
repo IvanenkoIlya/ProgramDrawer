@@ -21,6 +21,18 @@ namespace ProgramDrawer
         private bool _closing = false;
         WinForms.NotifyIcon notifyIcon;
 
+        private bool _lockDrawer = false;
+
+        public void LockDrawer()
+        {
+            _lockDrawer = true;
+        }
+
+        public void UnlockDrawer()
+        {
+            _lockDrawer = false;
+        }
+
         private Dictionary<string, UserControl> mainContents;
 
         private bool _isDrawerOpen = false;
@@ -76,7 +88,8 @@ namespace ProgramDrawer
                     if(!_closing)
                     {
                         Activate();
-                        IsDrawerOpen = !IsDrawerOpen;
+                        if(!_lockDrawer)
+                            IsDrawerOpen = !IsDrawerOpen;
                     }
                     _closing = false;
                 }
@@ -87,16 +100,18 @@ namespace ProgramDrawer
 
         protected override void OnDeactivated(EventArgs e)
         {
-            if (!_first)
+            if (!_lockDrawer)
             {
-                _closing = true;
-                IsDrawerOpen = false;
+                if (!_first)
+                {
+                    _closing = true;
+                    IsDrawerOpen = false;
 
-                base.OnDeactivated(e);
+                    base.OnDeactivated(e);
+                }
+                else
+                    _first = false;
             }
-            else
-                _first = false;
-            
         }
 
         protected override void OnClosing(CancelEventArgs e)

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,7 +50,7 @@ namespace ProgramDrawer.UserControls
             DataContext = this;
             InitializeComponent();
 
-            EventManager.RegisterClassHandler(typeof(Window), Keyboard.KeyDownEvent, new KeyEventHandler(KeyDown), true);
+            EventManager.RegisterClassHandler(typeof(MetroWindow), Keyboard.KeyDownEvent, new KeyEventHandler(KeyDown), true);
             SearchBar.ApplyAnimationClock(MarginProperty,
                 new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(10)).CreateClock());
 
@@ -70,13 +70,13 @@ namespace ProgramDrawer.UserControls
             }
             else
             {
-                _programItems = new List<ProgramItem>
+                _programItems = new List<ProgramItem>()
                 {
-                    new ProgramItem() { ProgramName = "test0" }, //this is a super long name so that it overlaps the settings icon
-                    new ProgramItem() { ProgramName = "test1" },
-                    new ProgramItem() { ProgramName = "test2" },
-                    new ProgramItem() { ProgramName = "test3" },
-                    new ProgramItem() { ProgramName = "test4" }
+                    new ProgramItem("test 0", ""), //this is a super long name so that it overlaps the settings icon
+                    new ProgramItem("test 1", ""),
+                    new ProgramItem("test 2", ""),
+                    new ProgramItem("test 3", ""),
+                    new ProgramItem("test 4", "")
                 };
             }
         }
@@ -117,12 +117,11 @@ namespace ProgramDrawer.UserControls
 
             // TODO Animate
             _programItems.Add(
-                new ProgramItem()
-                {
-                    ProgramName = addProgramControl.ProgramName,
-                    ImageLocation = addProgramControl.BannerImageLocation,
-                    ProgramLocation = addProgramControl.ProgramLocation
-                });
+                new ProgramItem(addProgramControl.ProgramName,
+                                addProgramControl.ProgramLocation,
+                                addProgramControl.BannerImageLocation)
+            );
+
             ProgramItems.Refresh();
 
             AddProgramGrid.Children.Remove(sender as AddProgramControl);

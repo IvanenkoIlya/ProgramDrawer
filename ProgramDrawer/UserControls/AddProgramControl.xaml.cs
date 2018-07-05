@@ -1,10 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using Forms = System.Windows.Forms;
 
 namespace ProgramDrawer.UserControls
@@ -26,7 +23,7 @@ namespace ProgramDrawer.UserControls
         public string ProgramLocation
         {
             get { return _programLocation; }
-            set { _programLocation = value; OnPropertyChanged("BannerImageLocation"); }
+            set { _programLocation = value; OnPropertyChanged("ProgramLocation"); }
         }
 
         private string _bannerImageLocation;
@@ -65,29 +62,32 @@ namespace ProgramDrawer.UserControls
                 // TODO setup stuff here
             };
 
-            // Drawer closes if this gets called
-            // Possible solution is to have a lock for drawer and then release it afterwards and return focus
+            (Application.Current.MainWindow as MainWindow).LockDrawer();
 
             if (dlg.ShowDialog() == Forms.DialogResult.OK)
             {
                 ProgramLocation = dlg.FileName;
             }
+
+            (Application.Current.MainWindow as MainWindow).UnlockDrawer();
         }
 
         private void SelectBannerImage(object sender, RoutedEventArgs e)
         {
             Forms.OpenFileDialog dlg = new Forms.OpenFileDialog
             {
-                Filter = "Image Files (.JPG,.PNG)|*.JPG,*.PNG"
+                Filter = "Image Files (.JPG,.PNG)|*.JPG;*.PNG"
                 // TODO setup stuff here
             };
 
-            // Drawer closes if this gets called
+            (Application.Current.MainWindow as MainWindow).LockDrawer();
 
             if (dlg.ShowDialog() == Forms.DialogResult.OK)
             {
                 BannerImageLocation = dlg.FileName;
             }
+
+            (Application.Current.MainWindow as MainWindow).UnlockDrawer();
         }
 
         private void CreateProgramItem(object sender, RoutedEventArgs e)

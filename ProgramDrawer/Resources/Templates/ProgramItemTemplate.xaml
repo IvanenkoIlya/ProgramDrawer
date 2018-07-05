@@ -7,20 +7,19 @@
         </DataTemplate.Resources>
         <Grid>
             <Rectangle Name="ProgramBody" Height="215" Width="460" RadiusX="10" RadiusY="10" Margin="10,5,10,5" 
-                       Stroke="{DynamicResource DrawerBackgroundColorDark}" StrokeThickness="3" MouseDown="LaunchProgram" Tag="{Binding .}">
+                       Stroke="{DynamicResource AccentColorBrush}" StrokeThickness="3" MouseDown="LaunchProgram" Tag="{Binding .}">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{Binding BannerImage}"/>
                 </Rectangle.Fill>
             </Rectangle>
             <Grid Name="EditGrid" Visibility="Hidden" MouseDown="Grid_MouseDown">
                 <Rectangle Name="EditBody" Height="215" Width="460" RadiusX="10" RadiusY="10" Margin="10,5,10,5" 
-                           Fill="{DynamicResource DrawerBackgroundColorDark}" Stroke="{DynamicResource DrawerBackgroundColorDark}" 
+                           Fill="{DynamicResource AccentColorBrush}" Stroke="{DynamicResource AccentColorBrush}" 
                            StrokeThickness="3" />
             </Grid>
             <Grid Name="ProgramLabel" Height="40" Opacity="0" VerticalAlignment="Bottom" Margin="10,0,10,5">
-                <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{DynamicResource DrawerBackgroundColorDark}" />
+                <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{DynamicResource AccentColorBrush}" />
                 <Label Content="{Binding ProgramName}" HorizontalAlignment="Center" VerticalAlignment="Top"
-                       Foreground="{DynamicResource DrawerTextColor}" 
                        FontFamily="Tw Cen MT Condensed Extra Bold" FontSize="25" Margin="5,0,35,0" MaxWidth="500" />
                 <Image Name="SettingsIcon" Source="{DynamicResource SettingsIcon}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,10,0" MouseDown="ChangeSettings" Tag="{Binding .}"/>
             </Grid>

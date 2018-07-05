@@ -39,6 +39,7 @@
                 </Button>
             </Grid>
             <Grid HorizontalAlignment="Center" Width="150" Margin="0,5,0,5">
+                <!--TODO Might want to change the style of these-->
                 <Button Name="TestButton" Content="Save" Width="70" HorizontalAlignment="Left" Click="CreateProgramItem"/>
                 <Button Content="Cancel" Width="70" HorizontalAlignment="Right" Click="CancelCreation"/>
             </Grid>
