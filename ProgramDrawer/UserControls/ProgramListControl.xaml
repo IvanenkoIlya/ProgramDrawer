@@ -14,47 +14,47 @@
         <Grid.Resources>
             <ResourceDictionary Source="/Resources/Icons.xaml" />
         </Grid.Resources>
-        <StackPanel Margin="0,5,0,0">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0,5,0,5">
+            <StackPanel>
                 <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0" 
                                   ItemTemplate="{DynamicResource ProgramItemTemplate}" 
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-            </ScrollViewer>
-            <Grid Name="AddProgramGrid" Height="225" Width="480" >
-                <Grid Opacity="0.5" MouseLeftButtonDown="CreateNewProgramItem">
-                    <Grid.Triggers>
-                        <EventTrigger RoutedEvent="ButtonBase.MouseEnter">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation From="0.5" To="0.9"
+                <Grid Name="AddProgramGrid" Height="225" Width="480" >
+                    <Grid Opacity="0.5" MouseLeftButtonDown="CreateNewProgramItem">
+                        <Grid.Triggers>
+                            <EventTrigger RoutedEvent="ButtonBase.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation From="0.5" To="0.9"
                                                  Duration="0:0:0.200"
                                                  Storyboard.TargetProperty="Opacity"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                        <EventTrigger RoutedEvent="ButtonBase.MouseLeave">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation From="0.9" To="0.5"
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="ButtonBase.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation From="0.9" To="0.5"
                                                  Duration="0:0:0.200"
                                                  Storyboard.TargetProperty="Opacity"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Grid.Triggers>
-                    <Rectangle Name="AddNewProgramButton" RadiusX="10" RadiusY="10" Height="215" Width="460" Margin="10,5,10,5" Fill="Transparent"
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Grid.Triggers>
+                        <Rectangle Name="AddNewProgramButton" RadiusX="10" RadiusY="10" Height="215" Width="460" Margin="10,5,10,5" Fill="Transparent"
                                    Stroke="{DynamicResource AccentColorBrush}" StrokeThickness="3" StrokeDashArray="5 5">
-                    </Rectangle>
-                    <Rectangle Width="80" Height="80" Margin="190,50,190,85" Fill="{DynamicResource AccentColorBrush}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Visual="{StaticResource appbar_add}"/>
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <Label Content="Add new program" Foreground="{DynamicResource AccentColorBrush}" FontSize="15"
+                        </Rectangle>
+                        <Rectangle Width="80" Height="80" Margin="190,50,190,85" Fill="{DynamicResource AccentColorBrush}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_add}"/>
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <Label Content="Add new program" Foreground="{DynamicResource AccentColorBrush}" FontSize="15"
                                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="165,135,165,50" />
+                    </Grid>
                 </Grid>
-            </Grid>
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
 
         <TextBox x:Name="SearchBar" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="Black"
                      VerticalAlignment="Top" Template="{DynamicResource SearchBarTemplate}" >
