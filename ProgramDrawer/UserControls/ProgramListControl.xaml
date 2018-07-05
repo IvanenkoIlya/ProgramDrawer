@@ -15,10 +15,11 @@
             <Grid.Resources>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
             </Grid.Resources>
-            <StackPanel>
+            <StackPanel Margin="0,5,0,0">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0" 
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+                                  ItemTemplate="{DynamicResource ProgramItemTemplate}" 
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
                 </ScrollViewer>
                 <Grid Name="AddProgramGrid" Height="225" Width="480" >
                     <Grid Opacity="0.5" MouseLeftButtonDown="CreateNewProgramItem">

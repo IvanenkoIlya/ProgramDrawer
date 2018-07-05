@@ -37,6 +37,20 @@ namespace ProgramDrawer.UserControls
         }
         #endregion
 
+        #region Events
+        public event EventHandler Cancel;
+        protected void OnCancel()
+        {
+            Cancel?.Invoke(this, new EventArgs());
+        }
+
+        public event EventHandler Save;
+        protected void OnSave()
+        {
+            Save?.Invoke(this, new EventArgs());
+        }
+        #endregion
+
         public AddProgramControl()
         {
             DataContext = this;
@@ -78,15 +92,15 @@ namespace ProgramDrawer.UserControls
 
         private void CreateProgramItem(object sender, RoutedEventArgs e)
         {
-            (Parent as Panel).Children.Remove(this);
+            OnSave();
         }
 
         private void CancelCreation(object sender, RoutedEventArgs e)
         {
-            (Parent as Panel).Children.Remove(this);
+            OnCancel();
         }
 
-        #region Propertychanged event
+        #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {

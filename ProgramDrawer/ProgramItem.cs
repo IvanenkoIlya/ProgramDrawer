@@ -8,6 +8,7 @@ namespace ProgramDrawer
     {
         public string ProgramName { get; set; }
         public string ImageLocation { get; set; }
+        public string ProgramLocation { get; set; }
         public BitmapImage BannerImage { get; set; } = new BitmapImage(new Uri(@"Resources/ProgramBanners/default.png", UriKind.Relative));
 
         private void PrintProgramName(object sender, EventArgs e)
