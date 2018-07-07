@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using Microsoft.Win32;
+using ProgramDrawer.Model;
 using ProgramDrawer.UserControls;
 using System;
 using System.Collections.Generic;
@@ -113,10 +114,10 @@ namespace ProgramDrawer
                     _first = false;
             }
         }
-
+        
         protected override void OnClosing(CancelEventArgs e)
         {
-            notifyIcon.Visible = false; 
+            notifyIcon.Visible = false;
 
             base.OnClosing(e);
         }
@@ -139,10 +140,25 @@ namespace ProgramDrawer
         private void UniversalTestButtonClick(object sender, RoutedEventArgs e)
         {
             if (toggle)
+            {
                 MainContentControl.Content = mainContents["ProgramList"];
+            }   
             else
+            {
                 MainContentControl.Content = mainContents["Settings"];
+            }
             toggle = !toggle;
+        }
+
+        private void ToggleLockClick(object sender, RoutedEventArgs e)
+        {
+            if(_lockDrawer)
+            {
+                UnlockDrawer();
+            } else
+            {
+                LockDrawer();
+            }
         }
     }
 }

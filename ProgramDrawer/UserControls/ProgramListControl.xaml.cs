@@ -1,7 +1,11 @@
 ﻿using MahApps.Metro.Controls;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using ProgramDrawer.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,7 +19,9 @@ namespace ProgramDrawer.UserControls
     /// </summary>
     public partial class ProgramListControl : UserControl
     {
-        private List<ProgramItem> _programItems;
+        private readonly string programFileLocation = Path.Combine(Directory.GetCurrentDirectory(), "programs.json");
+
+        private List<ProgramItemBase> _programItems;
         public ListCollectionView ProgramItems;
 
         private string _searchString = "";
@@ -54,30 +60,56 @@ namespace ProgramDrawer.UserControls
             SearchBar.ApplyAnimationClock(MarginProperty,
                 new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(10)).CreateClock());
 
-            PopulateProgramList();
+            LoadProgramList();
 
             ProgramItems = CollectionViewSource.GetDefaultView(_programItems) as ListCollectionView;
-            ProgramItems.Filter = (x => ((ProgramItem)x).ProgramName.ToLower().Contains(_searchString.ToLower()));
+            ProgramItems.Filter = (x => ((ProgramItemBase)x).ProgramName.ToLower().Contains(_searchString.ToLower()));
 
             ProgramList.ItemsSource = ProgramItems;
+
+            Application.Current.Exit += SaveProgramList;
         }
 
-        private void PopulateProgramList()
+        private void LoadProgramList()
         {
-            if (File.Exists(""))
+            if (File.Exists(programFileLocation))
             {
-                // TODO Load existing list from file
+                using (StreamReader sr = new StreamReader(programFileLocation))
+                {
+                    _programItems = JsonConvert.DeserializeObject<List<ProgramItemBase>>(sr.ReadToEnd(), 
+                        new JsonSerializerSettings
+                        {
+                            TypeNameHandling = TypeNameHandling.Objects
+                        });
+                }
             }
             else
             {
-                _programItems = new List<ProgramItem>()
+                _programItems = new List<ProgramItemBase>();
+                    //{
+                    //    new SteamProgramItem(105600),
+                    //    new ProgramItem("test 0", ""), //this is a super long name so that it overlaps the settings icon
+                    //    new ProgramItem("test 1", ""),
+                    //    new ProgramItem("test 2", ""),
+                    //    new ProgramItem("test 3", ""),
+                    //    new ProgramItem("test 4", ""),
+
+                    //};
+            }
+        }
+
+        public void SaveProgramList(object sender, ExitEventArgs e)
+        {
+            string json = JsonConvert.SerializeObject(_programItems, Formatting.Indented,
+                new JsonSerializerSettings
                 {
-                    new ProgramItem("test 0", ""), //this is a super long name so that it overlaps the settings icon
-                    new ProgramItem("test 1", ""),
-                    new ProgramItem("test 2", ""),
-                    new ProgramItem("test 3", ""),
-                    new ProgramItem("test 4", "")
-                };
+                    TypeNameHandling = TypeNameHandling.Objects,
+                    TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Simple
+                });
+
+            using (StreamWriter sw = new StreamWriter(programFileLocation, false))
+            {
+                sw.Write(json);
             }
         }
 

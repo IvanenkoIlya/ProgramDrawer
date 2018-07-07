@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Forms = System.Windows.Forms;
@@ -36,13 +37,13 @@ namespace ProgramDrawer.UserControls
 
         #region Events
         public event EventHandler Cancel;
-        protected void OnCancel()
+        private void CancelCreation(object sender, RoutedEventArgs e)
         {
             Cancel?.Invoke(this, new EventArgs());
         }
 
         public event EventHandler Save;
-        protected void OnSave()
+        private void CreateProgramItem(object sender, RoutedEventArgs e)
         {
             Save?.Invoke(this, new EventArgs());
         }
@@ -69,13 +70,26 @@ namespace ProgramDrawer.UserControls
                 ProgramLocation = dlg.FileName;
             }
 
-            (Application.Current.MainWindow as MainWindow).UnlockDrawer();
+            try
+            {
+                (Application.Current.MainWindow as MainWindow).UnlockDrawer();
+            } catch( NullReferenceException ex)
+            {
+                // TODO log exception
+            }
+            
         }
 
         private void SelectBannerImage(object sender, RoutedEventArgs e)
         {
+            string temp1 = Directory.GetCurrentDirectory();
+            string temp2 = @"Resources\ProgramBanners";
+
+            string temp3 = Path.Combine(temp1,temp2);
+
             Forms.OpenFileDialog dlg = new Forms.OpenFileDialog
             {
+                InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), @"Resources\ProgramBanners"),
                 Filter = "Image Files (.JPG,.PNG)|*.JPG;*.PNG"
                 // TODO setup stuff here
             };
@@ -87,17 +101,13 @@ namespace ProgramDrawer.UserControls
                 BannerImageLocation = dlg.FileName;
             }
 
-            (Application.Current.MainWindow as MainWindow).UnlockDrawer();
-        }
-
-        private void CreateProgramItem(object sender, RoutedEventArgs e)
-        {
-            OnSave();
-        }
-
-        private void CancelCreation(object sender, RoutedEventArgs e)
-        {
-            OnCancel();
+            try
+            {
+                (Application.Current.MainWindow as MainWindow).UnlockDrawer();
+            } catch( NullReferenceException ex)
+            {
+                // TODO log exception
+            }
         }
 
         #region INotifyPropertyChanged implementation

@@ -16,11 +16,12 @@
 
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout Header="Title" Position="Right" Width="480" Theme="Adapt"  Name="MyFlyout" IsOpen="{Binding IsDrawerOpen}" 
+            <Controls:Flyout Header="Title" Position="Right" Width="480" Theme="Adapt" Name="MyFlyout" IsOpen="{Binding IsDrawerOpen}" 
                              CloseButtonVisibility="Collapsed" TitleVisibility="Collapsed" >
                 <DockPanel Width="480" Height="{Binding DesktopHeight}" LastChildFill="True">
                     <Grid x:Name="NavigationBar" Height="90" DockPanel.Dock="Bottom" >
-                        <Button Name="UniversalTestButton" Content="Universal Test Button" Click="UniversalTestButtonClick"/>
+                        <Button Name="UniversalTestButton" Content="Universal Test Button" Click="UniversalTestButtonClick" Width="240" HorizontalAlignment="Left"/>
+                        <Button Name="ToggleLock" Content="Toggle Lock" Click="ToggleLockClick" Width="240" HorizontalAlignment="Right"/>
                     </Grid>
                     <Grid DockPanel.Dock="Top">
                         <Controls:TransitioningContentControl Name="MainContentControl" Transition="LeftReplace" />

@@ -6,19 +6,14 @@
             <Duration x:Key="AnimationDuration">0:0:0.150</Duration>
         </DataTemplate.Resources>
         <Grid>
-            <Rectangle Name="ProgramBody" Height="215" Width="460" RadiusX="10" RadiusY="10" Margin="10,5,10,5" 
-                       Stroke="{DynamicResource AccentColorBrush}" StrokeThickness="3" MouseDown="LaunchProgram" Tag="{Binding .}">
+            <Rectangle Name="ProgramBody" Width="460" Height="215" Margin="10,5,10,5" RadiusX="10" RadiusY="10" Opacity="0.9"
+                       Stroke="{DynamicResource AccentColorBrush}"  StrokeThickness="3" MouseLeftButtonDown="LaunchProgram" Tag="{Binding .}">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="{Binding BannerImage}"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Grid Name="EditGrid" Visibility="Hidden" MouseDown="Grid_MouseDown">
-                <Rectangle Name="EditBody" Height="215" Width="460" RadiusX="10" RadiusY="10" Margin="10,5,10,5" 
-                           Fill="{DynamicResource AccentColorBrush}" Stroke="{DynamicResource AccentColorBrush}" 
-                           StrokeThickness="3" />
-            </Grid>
             <Grid Name="ProgramLabel" Height="40" Opacity="0" VerticalAlignment="Bottom" Margin="10,0,10,5">
-                <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{DynamicResource AccentColorBrush}" />
+                <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{DynamicResource AccentColorBrush}" Opacity="0.9"/>
                 <Label Content="{Binding ProgramName}" HorizontalAlignment="Center" VerticalAlignment="Top"
                        FontFamily="Tw Cen MT Condensed Extra Bold" FontSize="25" Margin="5,0,35,0" MaxWidth="500" />
                 <Image Name="SettingsIcon" Source="{DynamicResource SettingsIcon}" VerticalAlignment="Center" HorizontalAlignment="Right" Width="25" Height="25" Margin="0,0,10,0" MouseDown="ChangeSettings" Tag="{Binding .}"/>
@@ -31,10 +26,6 @@
                                 <DoubleAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Height" To="223" Duration="{DynamicResource AnimationDuration}" />
                                 <DoubleAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Width" To="474" Duration="{DynamicResource AnimationDuration}" />
                                 <ThicknessAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Margin" To="3,1,3,1" Duration="{DynamicResource AnimationDuration}" />
-
-                                <DoubleAnimation Storyboard.TargetName="EditBody" Storyboard.TargetProperty="Height" To="223" Duration="{DynamicResource AnimationDuration}" />
-                                <DoubleAnimation Storyboard.TargetName="EditBody" Storyboard.TargetProperty="Width" To="474" Duration="{DynamicResource AnimationDuration}" />
-                                <ThicknessAnimation Storyboard.TargetName="EditBody" Storyboard.TargetProperty="Margin" To="3,1,3,1" Duration="{DynamicResource AnimationDuration}" />
 
                                 <DoubleAnimation Storyboard.TargetName="ProgramLabel" Storyboard.TargetProperty="Opacity" To="1" Duration="{DynamicResource AnimationDuration}" />
                                 <ThicknessAnimation Storyboard.TargetName="ProgramLabel" Storyboard.TargetProperty="Margin" To="3,1,3,1" Duration="{DynamicResource AnimationDuration}" />
@@ -49,10 +40,6 @@
                                 <DoubleAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Height" To="215" Duration="{DynamicResource AnimationDuration}" />
                                 <DoubleAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Width" To="460" Duration="{DynamicResource AnimationDuration}" />
                                 <ThicknessAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Margin" To="10,5,10,5" Duration="{DynamicResource AnimationDuration}" />
-
-                                <DoubleAnimation Storyboard.TargetName="EditBody" Storyboard.TargetProperty="Height" To="215" Duration="{DynamicResource AnimationDuration}" />
-                                <DoubleAnimation Storyboard.TargetName="EditBody" Storyboard.TargetProperty="Width" To="460" Duration="{DynamicResource AnimationDuration}" />
-                                <ThicknessAnimation Storyboard.TargetName="EditBody" Storyboard.TargetProperty="Margin" To="10,5,10,5" Duration="{DynamicResource AnimationDuration}" />
 
                                 <DoubleAnimation Storyboard.TargetName="ProgramLabel" Storyboard.TargetProperty="Opacity" To="0" Duration="{DynamicResource AnimationDuration}" />
                                 <ThicknessAnimation Storyboard.TargetName="ProgramLabel" Storyboard.TargetProperty="Margin" To="10,5,10,5" Duration="{DynamicResource AnimationDuration}" />

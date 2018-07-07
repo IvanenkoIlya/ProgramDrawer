@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProgramDrawer.Model;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
@@ -9,20 +10,14 @@ namespace ProgramDrawer.Resources.Templates
     {
         public virtual void ChangeSettings(object sender, RoutedEventArgs e)
         {
-            ((sender as Image).Tag as ProgramItem).ChangeSettings(sender, e);
+            ((sender as Image).Tag as ProgramItemBase).ChangeProperties(sender, e);
         }
 
         public virtual void LaunchProgram(object sender, RoutedEventArgs e)
         {
-            ((sender as Rectangle).Tag as ProgramItem).LaunchProgram(sender, e);
-        }
-
-        private void Grid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Console.WriteLine("Edit click test");
+            ((sender as Rectangle).Tag as ProgramItemBase).LaunchProgram(sender, e);
         }
 
         // To open taskbar settings: Process.Start("ms-settings:taskbar");
-        // To start steam app: Process.Start($@"steam://rungameid/105600"); 
     }
 }

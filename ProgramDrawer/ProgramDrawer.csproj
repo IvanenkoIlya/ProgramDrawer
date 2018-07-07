@@ -68,7 +68,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ProgramItem.cs" />
+    <Compile Include="Model\ProgramItem.cs" />
+    <Compile Include="Model\ProgramItemBase.cs" />
+    <Compile Include="Model\SteamProgramItem.cs" />
     <Compile Include="Resources\Templates\ProgramItemTemplate.xaml.cs">
       <DependentUpon>ProgramItemTemplate.xaml</DependentUpon>
     </Compile>
@@ -82,7 +84,6 @@
     <Compile Include="UserControls\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserSettings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
