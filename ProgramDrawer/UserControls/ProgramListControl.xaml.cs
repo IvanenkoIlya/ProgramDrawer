@@ -1,11 +1,12 @@
 ﻿using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using ProgramDrawer.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -86,15 +87,27 @@ namespace ProgramDrawer.UserControls
             else
             {
                 _programItems = new List<ProgramItemBase>();
-                    //{
-                    //    new SteamProgramItem(105600),
-                    //    new ProgramItem("test 0", ""), //this is a super long name so that it overlaps the settings icon
-                    //    new ProgramItem("test 1", ""),
-                    //    new ProgramItem("test 2", ""),
-                    //    new ProgramItem("test 3", ""),
-                    //    new ProgramItem("test 4", ""),
 
-                    //};
+                string steamDirectory = "";
+
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam"))
+                {
+                    if (key != null)
+                    {
+                        steamDirectory = key.GetValue("SteamPath").ToString().Replace("/", @"\");
+                    }
+                }
+
+                if(steamDirectory != "")
+                {
+                    Dictionary<int,string> appIDs = GetInstalledSteamAppIds(steamDirectory);
+                    foreach(KeyValuePair<int,string> keyValue in appIDs)
+                    {
+                        string programName = GetSteamAppNameFromAcf(keyValue.Value);
+
+                        _programItems.Add(new SteamProgramItem(keyValue.Key, programName));
+                    }
+                }
             }
         }
 
@@ -157,6 +170,42 @@ namespace ProgramDrawer.UserControls
             ProgramItems.Refresh();
 
             AddProgramGrid.Children.Remove(sender as AddProgramControl);
+        }
+
+        private Dictionary<int,string> GetInstalledSteamAppIds(string steamInstallLocation)
+        {
+            List<string> acfFiles = Directory.EnumerateFiles(steamInstallLocation + @"\steamapps")
+                .Where(f => Regex.Match(Path.GetFileName(f), @"appmanifest_(\d*).acf").Success).ToList();
+
+            Dictionary<int, string> result = new Dictionary<int, string>();
+
+            foreach(string file in acfFiles)
+            {
+                result.Add(Int32.Parse(Regex.Match(Path.GetFileName(file), @"appmanifest_(\d*).acf").Groups[1].Value), file);
+            }
+
+            result.Remove(228980); // This is Steamworks Common Redistributables, not actually a valid game
+
+            return result;
+        }
+
+        private string GetSteamAppNameFromAcf(string file)
+        {
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string line;
+
+                while((line = sr.ReadLine()) != null)
+                {
+                    if (line.Contains("\"name\""))
+                    {
+                        string[] parts = line.Split('\"');
+                        return parts[3];
+                    }
+                }
+            }
+
+            return "";
         }
     }
 }

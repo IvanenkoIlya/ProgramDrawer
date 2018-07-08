@@ -71,31 +71,5 @@ namespace ProgramDrawer
         {
             //window.DownloadProgressBar.Visibility = Visibility.Collapsed;
         }
-
-        private List<int> GetInstalledSteamAppIds(string steamInstallLocation)
-        {
-            return Directory.EnumerateFiles(steamInstallLocation + @"\steamapps")
-                .Where(f => Regex.Match(Path.GetFileName(f), @"appmanifest_(\d*).acf").Success) // Could likely optimize into one linq statement?
-                .Select(f => Int32.Parse(Regex.Match(Path.GetFileName(f), @"appmanifest_(\d*).acf").Groups[1].Value))
-                .ToList();
-        }
-
-        private string _steamDirectory;
-        public string SteamDirectory
-        {
-            get
-            {
-                if (_steamDirectory == null)
-                    using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam"))
-                    {
-                        if (key != null)
-                        {
-                            _steamDirectory = key.GetValue("SteamPath").ToString().Replace("/", @"\");
-                        }
-                    }
-
-                return _steamDirectory;
-            }
-        }
     }
 }
