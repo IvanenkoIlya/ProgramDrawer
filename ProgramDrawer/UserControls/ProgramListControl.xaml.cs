@@ -86,7 +86,7 @@ namespace ProgramDrawer.UserControls
             }
             else
             {
-                _programItems = new List<ProgramItemBase>();
+                _programItems = new List<ProgramItemBase>();                
 
                 string steamDirectory = "";
 

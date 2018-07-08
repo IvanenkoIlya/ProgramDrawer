@@ -74,7 +74,6 @@
     <Compile Include="Resources\Templates\ProgramItemTemplate.xaml.cs">
       <DependentUpon>ProgramItemTemplate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SteamBannerDownloader.cs" />
     <Compile Include="UserControls\AddProgramControl.xaml.cs">
       <DependentUpon>AddProgramControl.xaml</DependentUpon>
     </Compile>
