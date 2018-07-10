@@ -1,5 +1,4 @@
-﻿using ProgramDrawer.ViewModel;
-using System;
+using ProgramDrawer.Model;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
@@ -10,12 +9,13 @@ namespace ProgramDrawer.Resources.Templates
     {
         public virtual void ChangeSettings(object sender, RoutedEventArgs e)
         {
-            ((sender as Image).Tag as ProgramItem).ChangeSettings(sender, e);
+            ((sender as Image).Tag as ProgramItemBase).ChangeProperties(sender, e);
         }
 
         public virtual void LaunchProgram(object sender, RoutedEventArgs e)
         {
-            ((sender as Rectangle).Tag as ProgramItem).LaunchProgram(sender, e);
+            ((sender as Rectangle).Tag as ProgramItemBase).LaunchProgram(sender, e);
         }
+        // To open taskbar settings: Process.Start("ms-settings:taskbar");
     }
 }

@@ -1,26 +1,39 @@
-﻿<Window x:Class="ProgramDrawer.MainWindow"
+﻿<Controls:MetroWindow x:Class="ProgramDrawer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	    xmlns:Behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
         mc:Ignorable="d" ShowInTaskbar="False"
-        Title="ProgramDrawer" Height="{Binding DesktopHeight}" Width="480" Top="0" Visibility="Visible"
-        AllowsTransparency="True" Background="Transparent" WindowStyle="None" Focusable="True" Name="MyWindow">
-    <DockPanel Width="480" Height="{Binding DesktopHeight}" Background="{DynamicResource DrawerBackgroundColorLight}" LastChildFill="True">
-        <DockPanel x:Name="ControlBar" Height="90" DockPanel.Dock="Bottom" Background="{DynamicResource DrawerBackgroundColorDark}">
-            <Button Style="{DynamicResource DrawerSettingButtonStyle}"/>
-            <Button Style="{DynamicResource DrawerSettingButtonStyle}"/>
-            <Button Style="{DynamicResource DrawerSettingButtonStyle}" HorizontalAlignment="Right"/>
-        </DockPanel>
-        <ProgressBar x:Name="DownloadProgressBar" Style="{DynamicResource ProgressBarStyle}" 
-                     DockPanel.Dock="Bottom" Minimum="0" Maximum="100" Value="50" Visibility="Collapsed"/>
-        <Grid DockPanel.Dock="Top">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0" 
-                              ItemTemplate="{DynamicResource ProgramItemTemplate}" 
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-            </ScrollViewer>
-            <TextBox Name="SearchBar" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Template="{DynamicResource SearchBarTemplate}" VerticalAlignment="Top" />
-        </Grid>
-    </DockPanel>
-</Window>
+        Title="ProgramDrawer" Height="{Binding DesktopHeight}" Width="480" MaxWidth="480" Top="0" 
+        ShowTitleBar="False" ResizeMode="NoResize" ShowCloseButton="False" BorderThickness="0" 
+        Focusable="True" Name="MyWindow" Background="Transparent">
+    <i:Interaction.Behaviors>
+        <Behaviours:BorderlessWindowBehavior />
+    </i:Interaction.Behaviors>
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Header="Title" Position="Right" Width="480" Theme="Adapt" Name="MyFlyout" IsOpen="{Binding IsDrawerOpen}" 
+                             CloseButtonVisibility="Collapsed" TitleVisibility="Collapsed" >
+                <DockPanel Width="480" Height="{Binding DesktopHeight}" LastChildFill="True">
+                    <Grid x:Name="NavigationBar" Height="90" DockPanel.Dock="Bottom" >
+                        <Button Name="UniversalTestButton" Content="Universal Test Button" Click="UniversalTestButtonClick" Width="240" HorizontalAlignment="Left"/>
+                        <Button Name="ToggleLock" Content="Toggle Lock" Click="ToggleLockClick" Width="240" HorizontalAlignment="Right"/>
+                    </Grid>
+                    <Grid DockPanel.Dock="Top">
+                        <Controls:TransitioningContentControl Name="MainContentControl" Transition="LeftReplace" />
+                    </Grid>
+                </DockPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+</Controls:MetroWindow>
