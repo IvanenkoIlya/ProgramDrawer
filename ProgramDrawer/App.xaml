@@ -17,6 +17,7 @@
 
                 <ResourceDictionary Source="Resources/Templates/ProgramItemTemplate.xaml" />
                 <ResourceDictionary Source="Resources/Styles/ProgressBarStyle.xaml" />
+                <ResourceDictionary Source="Resources/Icons/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
