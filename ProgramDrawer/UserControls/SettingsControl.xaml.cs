@@ -18,26 +18,39 @@ namespace ProgramDrawer.UserControls
         {
             settings = new Settings()
             {
-                SelectedAccent = ThemeManager.DetectAppStyle(Application.Current).Item2
+                DarkTheme = Properties.Settings.Default.BaseColor == "BaseDark",
+                SelectedAccent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor)
             };   
             
             DataContext = settings;
             InitializeComponent();
+
+            Properties.Settings.Default.SettingsSaving += ApplySettings;
         }
 
-        private void ApplySettings(object sender, RoutedEventArgs e)
+        private void ApplySettings(object sender, CancelEventArgs e)
         {
-            ThemeManager.ChangeAppStyle(Application.Current, settings.SelectedAccent, 
-                settings.DarkTheme ? ThemeManager.GetAppTheme("BaseDark") : ThemeManager.GetAppTheme("BaseLight"));
+            ThemeManager.ChangeAppStyle(Application.Current,
+                ThemeManager.GetAccent(Properties.Settings.Default.AccentColor),
+                ThemeManager.GetAppTheme(Properties.Settings.Default.BaseColor));
+        }
+
+        private void SaveSettings(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.AccentColor = settings.SelectedAccent.Name;
+            Properties.Settings.Default.BaseColor = settings.DarkTheme ? "BaseDark" : "BaseLight"; 
+            Properties.Settings.Default.Save();
         }
 
         private void CancelSettings(object sender, RoutedEventArgs e)
         {
-            Tuple<AppTheme, Accent> tuple = ThemeManager.DetectAppStyle(Application.Current);
+            Accent accent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor);
 
-            settings.DarkTheme = tuple.Item1 == ThemeManager.GetAppTheme("BaseDark");
-
-            settings.SelectedAccent = tuple.Item2;
+            settings = new Settings()
+            {
+                DarkTheme = Properties.Settings.Default.BaseColor == "BaseDark",
+                SelectedAccent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor)
+            };
         }
     }
 

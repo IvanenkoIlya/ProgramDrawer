@@ -11,7 +11,9 @@ namespace ProgramDrawer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            ThemeManager.ChangeAppStyle(Current, ThemeManager.GetAccent("Blue"), ThemeManager.GetAppTheme("BaseDark"));
+            ThemeManager.ChangeAppStyle(Current, 
+                ThemeManager.GetAccent(ProgramDrawer.Properties.Settings.Default.AccentColor), 
+                ThemeManager.GetAppTheme(ProgramDrawer.Properties.Settings.Default.BaseColor));
 
             base.OnStartup(e);
         }
