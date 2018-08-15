@@ -31,6 +31,7 @@ namespace ProgramDrawer.Model
                 Process.Start(ProgramLocation);
             } catch(InvalidOperationException ex)
             {
+                Debug.WriteLine(ex);
                 // TODO handle exception and possibly animate
             }   
         }

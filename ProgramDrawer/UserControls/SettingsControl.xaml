@@ -16,6 +16,7 @@
         <Label FontSize="15" Content="Accent color" Padding="0,0,0,2"/>
         <Controls:SplitButton Height="10" Width="100" ArrowBrush="{DynamicResource AccentColorBrush}" BorderBrush="{DynamicResource AccentColorBrush}"
                               ItemsSource="{Binding Accents}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedAccent}" HorizontalAlignment="Left"/>
+        <local:SoundDeviceManager Height="175"/>
         <Separator Background="{DynamicResource AccentColorBrush}" Margin="0,10,0,10" />
 
         <StackPanel Orientation="Horizontal">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -75,6 +76,7 @@ namespace ProgramDrawer.UserControls
                 (Application.Current.MainWindow as MainWindow).UnlockDrawer();
             } catch( NullReferenceException ex)
             {
+                Debug.WriteLine(ex);
                 // TODO log exception
             }
             
@@ -106,6 +108,7 @@ namespace ProgramDrawer.UserControls
                 (Application.Current.MainWindow as MainWindow).UnlockDrawer();
             } catch( NullReferenceException ex)
             {
+                Debug.WriteLine(ex);
                 // TODO log exception
             }
         }

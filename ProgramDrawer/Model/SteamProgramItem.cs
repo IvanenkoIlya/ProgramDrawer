@@ -40,6 +40,7 @@ namespace ProgramDrawer.Model
                 }
                 catch (Exception ex)
                 {
+                    Debug.WriteLine(ex);
                     ImageLocation = "";
                 }
             }
