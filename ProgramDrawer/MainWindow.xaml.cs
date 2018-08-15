@@ -132,16 +132,18 @@ namespace ProgramDrawer
 
         private void SetStartup()
         {
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            rk.SetValue("ProgramDrawer", System.Windows.Forms.Application.ExecutablePath);
-            rk.Close();
+            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run",
+                "ProgramDrawer",
+                System.Windows.Forms.Application.ExecutablePath);
         }
 
         private void RemoveStartup()
         {
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
-            rk.DeleteValue("ProgramDrawer");
-            rk.Close();
+            using (RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true))
+            {
+                if (rk != null)
+                    rk.DeleteValue("ProgramDrawer");
+            }
         }
 
         #region Property Changed event handler
