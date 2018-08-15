@@ -4,6 +4,7 @@ using ProgramDrawer.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using WinForms = System.Windows.Forms;
@@ -67,6 +68,14 @@ namespace ProgramDrawer
             mainContents.Add("Settings", new SettingsControl());
 
             MainContentControl.Content = mainContents["ProgramList"];
+            
+            if(Properties.Settings.Default.FirstRun)
+            {
+                // TODO replace with tutorial window on how to set to allways visible
+                // Process.Start("ms-settings:taskbar");
+                Properties.Settings.Default.FirstRun = false;
+                Properties.Settings.Default.Save();
+            }
         }
 
         private WinForms.NotifyIcon SetupNotifyIcon()
@@ -125,6 +134,14 @@ namespace ProgramDrawer
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
             rk.SetValue("ProgramDrawer", System.Windows.Forms.Application.ExecutablePath);
+            rk.Close();
+        }
+
+        private void RemoveStartup()
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true);
+            rk.DeleteValue("ProgramDrawer");
+            rk.Close();
         }
 
         #region Property Changed event handler

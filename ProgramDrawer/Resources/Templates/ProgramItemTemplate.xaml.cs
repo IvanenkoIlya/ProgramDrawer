@@ -16,6 +16,5 @@ namespace ProgramDrawer.Resources.Templates
         {
             ((sender as Rectangle).Tag as ProgramItemBase).LaunchProgram(sender, e);
         }
-        // To open taskbar settings: Process.Start("ms-settings:taskbar");
     }
 }
