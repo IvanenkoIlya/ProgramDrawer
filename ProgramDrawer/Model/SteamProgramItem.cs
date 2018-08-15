@@ -58,15 +58,15 @@ namespace ProgramDrawer.Model
         private string RemoveInvalidFilenameChars(string value)
         {
             string result = value;
-            result = result.Replace("<", String.Empty);
-            result = result.Replace(">", String.Empty);
-            result = result.Replace(":", String.Empty);
-            result = result.Replace("\"", String.Empty);
-            result = result.Replace("/", String.Empty);
-            result = result.Replace("\\", String.Empty);
-            result = result.Replace("|", String.Empty);
-            result = result.Replace("?", String.Empty);
-            result = result.Replace("*", String.Empty);
+            result = result.Replace("<", string.Empty);
+            result = result.Replace(">", string.Empty);
+            result = result.Replace(":", string.Empty);
+            result = result.Replace("\"", string.Empty);
+            result = result.Replace("/", string.Empty);
+            result = result.Replace("\\", string.Empty);
+            result = result.Replace("|", string.Empty);
+            result = result.Replace("?", string.Empty);
+            result = result.Replace("*", string.Empty);
             return result;
         }
     }
