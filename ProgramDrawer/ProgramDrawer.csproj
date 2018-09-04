@@ -95,6 +95,9 @@
     <Compile Include="Resources\Templates\ProgramItemTemplate.xaml.cs">
       <DependentUpon>ProgramItemTemplate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Templates\SoundDeviceTemplate.xaml.cs">
+      <DependentUpon>SoundDeviceTemplate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AddProgramControl.xaml.cs">
       <DependentUpon>AddProgramControl.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Templates\ProgramItemTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Templates\SoundDeviceTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
