@@ -1,4 +1,6 @@
-﻿using MahApps.Metro;
+﻿using AudioSwitcher.AudioApi;
+using AudioSwitcher.AudioApi.CoreAudio;
+using MahApps.Metro;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -42,6 +44,8 @@ namespace ProgramDrawer.UserControls
 
             DataContext = this;
             InitializeComponent();
+
+            OutputDevices.AudioDevices = new ObservableCollection<Device>(new CoreAudioController().GetPlaybackDevices());
 
             Properties.Settings.Default.SettingsSaving += ApplySettings;
         }
