@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -27,6 +28,18 @@ namespace ProgramDrawer.Model
             this.ImageLocation = ImageLocation;
         }
 
+        public override void LaunchProgram(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start($@"steam://rungameid/{AppID}");
+            } catch( Win32Exception fileNotFoundException)
+            {
+                //TODO file not found
+            }       
+        }
+
+        #region Helper functions
         private void DownloadBanner()
         {
             using (WebClient client = new WebClient())
@@ -45,16 +58,6 @@ namespace ProgramDrawer.Model
             }
         }
 
-        public override void ChangeProperties(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void LaunchProgram(object sender, RoutedEventArgs e)
-        {
-            Process.Start($@"steam://rungameid/{AppID}");
-        }
-
         private string RemoveInvalidFilenameChars(string value)
         {
             string result = value;
@@ -68,6 +71,12 @@ namespace ProgramDrawer.Model
             result = result.Replace("?", string.Empty);
             result = result.Replace("*", string.Empty);
             return result;
+        }
+        #endregion
+
+        public override object Clone()
+        {
+            return new SteamProgramItem(AppID, ProgramName, ImageLocation);
         }
     }
 }

@@ -86,6 +86,7 @@ namespace ProgramDrawer.UserControls
             }
             else
             {
+                //TODO This needs to be moved out elsewhere
                 _programItems = new List<ProgramItemBase>();                
 
                 string steamDirectory = "";
@@ -143,7 +144,7 @@ namespace ProgramDrawer.UserControls
 
         private void CreateNewProgramItem(object sender, MouseButtonEventArgs e)
         {
-            AddProgramControl addProgramControl = new AddProgramControl();
+            EditableProgramItemControl addProgramControl = new EditableProgramItemControl();
 
             addProgramControl.Cancel += OnCancel;
             addProgramControl.Save += OnSave;
@@ -153,23 +154,19 @@ namespace ProgramDrawer.UserControls
 
         private void OnCancel(object sender, EventArgs e)
         {
-            AddProgramGrid.Children.Remove(sender as AddProgramControl);
+            AddProgramGrid.Children.Remove(sender as EditableProgramItemControl);
         }
 
         private void OnSave(object sender, EventArgs e)
         {
-            AddProgramControl addProgramControl = (sender as AddProgramControl);
+            EditableProgramItemControl addProgramControl = (sender as EditableProgramItemControl);
 
             // TODO Animate
-            _programItems.Add(
-                new ProgramItem(addProgramControl.ProgramName,
-                                addProgramControl.ProgramLocation,
-                                addProgramControl.BannerImageLocation)
-            );
+            _programItems.Add(addProgramControl.ProgramItem);
 
             ProgramItems.Refresh();
 
-            AddProgramGrid.Children.Remove(sender as AddProgramControl);
+            AddProgramGrid.Children.Remove(sender as EditableProgramItemControl);
         }
 
         private Dictionary<int,string> GetInstalledSteamAppIds(string steamInstallLocation)

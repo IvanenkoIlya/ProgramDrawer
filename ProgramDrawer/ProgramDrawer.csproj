@@ -86,11 +86,11 @@
     <Compile Include="Model\ProgramItem.cs" />
     <Compile Include="Model\ProgramItemBase.cs" />
     <Compile Include="Model\SteamProgramItem.cs" />
-    <Compile Include="Resources\Templates\ProgramItemTemplate.xaml.cs">
-      <DependentUpon>ProgramItemTemplate.xaml</DependentUpon>
+    <Compile Include="UserControls\EditableProgramItemControl.xaml.cs">
+      <DependentUpon>EditableProgramItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AddProgramControl.xaml.cs">
-      <DependentUpon>AddProgramControl.xaml</DependentUpon>
+    <Compile Include="UserControls\ProgramItemControl.xaml.cs">
+      <DependentUpon>ProgramItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ProgramListControl.xaml.cs">
       <DependentUpon>ProgramListControl.xaml</DependentUpon>
@@ -122,11 +122,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Templates\ProgramItemTemplate.xaml">
+    <Page Include="UserControls\EditableProgramItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\AddProgramControl.xaml">
+    <Page Include="UserControls\ProgramItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

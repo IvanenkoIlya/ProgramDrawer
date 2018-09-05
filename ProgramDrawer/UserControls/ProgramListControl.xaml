@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:usercontrols="clr-namespace:ProgramDrawer.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="480">
     <Grid>
@@ -10,9 +11,14 @@
                      Minimum="0" Maximum="100" Value="50" Visibility="Visible" Height="10"/>-->
         <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0,5,0,5">
             <StackPanel>
-                <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0" 
-                                  ItemTemplate="{DynamicResource ProgramItemTemplate}" 
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+                <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <usercontrols:ProgramItemControl ProgramItem="{Binding}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
                 <Grid Name="AddProgramGrid" Height="225" Width="480" >
                     <Grid Opacity="0.5" MouseLeftButtonDown="CreateNewProgramItem">
                         <Grid.Triggers>
