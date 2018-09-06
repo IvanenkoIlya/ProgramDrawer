@@ -16,7 +16,8 @@ namespace ProgramDrawer.UserControls
 
         public SettingsControl()
         {
-            settings = RecreateSettings();
+            settings = new Settings();
+            RecreateSettings();
 
             DataContext = settings;
             InitializeComponent();
@@ -42,16 +43,13 @@ namespace ProgramDrawer.UserControls
         {
             Accent accent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor);
 
-            settings = RecreateSettings();
+            RecreateSettings();
         }
 
-        private Settings RecreateSettings()
+        private void RecreateSettings()
         {
-            return new Settings()
-            {
-                DarkTheme = Properties.Settings.Default.BaseColor == "BaseDark",
-                SelectedAccent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor)
-            };
+            settings.DarkTheme = Properties.Settings.Default.BaseColor == "BaseDark";
+            settings.SelectedAccent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor);
         }
     }
 
