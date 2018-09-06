@@ -2,27 +2,57 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace ProgramDrawer.UserControls
 {
     /// <summary>
     /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class SettingsControl : UserControl
+    public partial class SettingsControl : UserControl, INotifyPropertyChanged
     {
-        Settings settings;
+        #region Properties
+        public ObservableCollection<Accent> Accents
+        {
+            get { return new ObservableCollection<Accent>(ThemeManager.Accents); }
+        }
+
+        private Accent _accent;
+        public Accent Accent
+        {
+            get { return _accent; }
+            set { _accent = value; OnPropertyChanged("Accent"); }
+        }
+
+        private AppTheme _appTheme;
+        public AppTheme AppTheme
+        {
+            get { return _appTheme; }
+            set { _appTheme = value; OnPropertyChanged("AppTheme"); }
+        }
+        #endregion
 
         public SettingsControl()
         {
-            settings = RecreateSettings();
+            Accent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor);
+            AppTheme = ThemeManager.GetAppTheme(Properties.Settings.Default.BaseColor);
 
-            DataContext = settings;
+            DataContext = this;
             InitializeComponent();
 
             Properties.Settings.Default.SettingsSaving += ApplySettings;
         }
+
+        #region INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+        #endregion
 
         private void ApplySettings(object sender, CancelEventArgs e)
         {
@@ -33,25 +63,28 @@ namespace ProgramDrawer.UserControls
 
         private void SaveSettings(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.AccentColor = settings.SelectedAccent.Name;
-            Properties.Settings.Default.BaseColor = settings.DarkTheme ? "BaseDark" : "BaseLight"; 
+            Properties.Settings.Default.AccentColor = Accent.Name;
+            Properties.Settings.Default.BaseColor = AppTheme.Name; 
             Properties.Settings.Default.Save();
         }
 
         private void CancelSettings(object sender, RoutedEventArgs e)
         {
-            Accent accent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor);
+            Accent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor);
+            AppTheme = ThemeManager.GetAppTheme(Properties.Settings.Default.BaseColor);
+        }
+    }
 
-            settings = RecreateSettings();
+    public class AppThemeToBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (value as AppTheme).Name == "BaseDark";
         }
 
-        private Settings RecreateSettings()
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return new Settings()
-            {
-                DarkTheme = Properties.Settings.Default.BaseColor == "BaseDark",
-                SelectedAccent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor)
-            };
+            return (bool)value ? ThemeManager.GetAppTheme("BaseDark") : ThemeManager.GetAppTheme("BaseLight");
         }
     }
 
@@ -69,11 +102,6 @@ namespace ProgramDrawer.UserControls
         {
             get { return _selectedAccent; }
             set { _selectedAccent = value; OnPropertyChanged("SelectedAccent"); }
-        }
-
-        public ObservableCollection<Accent> Accents
-        {
-            get { return new ObservableCollection<Accent>(ThemeManager.Accents); }
         }
 
         #region PropertyChanged event handler

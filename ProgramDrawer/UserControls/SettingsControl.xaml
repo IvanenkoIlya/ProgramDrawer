@@ -7,15 +7,18 @@
              xmlns:local="clr-namespace:ProgramDrawer.UserControls"
              mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="600">
     <StackPanel Margin="20,10,20,10">
+        <StackPanel.Resources>
+            <local:AppThemeToBoolConverter x:Key="AppThemeConverter" />
+        </StackPanel.Resources>
         <Label Content="Settings" FontSize="25" FontWeight="Bold" Padding="0,0,0,0"/>
         <Separator Background="{DynamicResource AccentColorBrush}" Margin="0,5,0,2" />
         <Controls:ToggleSwitch Header="Theme type" OnLabel="Dark" OffLabel="Light" Margin="0,5,0,0" HorizontalAlignment="Left"
-                               Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" IsChecked="{Binding DarkTheme}" />
+                               Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" IsChecked="{Binding AppTheme, Converter={StaticResource AppThemeConverter}}" />
         <Controls:ToggleSwitch Header="Toggle setting" OnLabel="On" OffLabel="Off" Margin="0,5,0,5" HorizontalAlignment="Left"
                                Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
         <Label FontSize="15" Content="Accent color" Padding="0,0,0,2"/>
         <Controls:SplitButton Height="10" Width="100" ArrowBrush="{DynamicResource AccentColorBrush}" BorderBrush="{DynamicResource AccentColorBrush}"
-                              ItemsSource="{Binding Accents}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedAccent}" HorizontalAlignment="Left"/>
+                              ItemsSource="{Binding Accents}" DisplayMemberPath="Name" SelectedItem="{Binding Accent}" HorizontalAlignment="Left"/>
         <Separator Background="{DynamicResource AccentColorBrush}" Margin="0,10,0,10" />
 
         <StackPanel Orientation="Horizontal">

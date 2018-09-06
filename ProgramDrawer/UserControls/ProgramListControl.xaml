@@ -49,8 +49,8 @@
                                 <VisualBrush Visual="{StaticResource appbar_add}"/>
                             </Rectangle.OpacityMask>
                         </Rectangle>
-                        <Label Content="Add new program" Foreground="{DynamicResource AccentColorBrush}" FontSize="15"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="165,135,165,50" />
+                        <Label Content="Add new program" Foreground="{DynamicResource AccentColorBrush}" FontSize="20"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,135,0,50" />
                     </Grid>
                 </Grid>
             </StackPanel>
