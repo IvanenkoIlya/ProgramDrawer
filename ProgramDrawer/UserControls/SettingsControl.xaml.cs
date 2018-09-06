@@ -46,14 +46,6 @@ namespace ProgramDrawer.UserControls
             Properties.Settings.Default.SettingsSaving += ApplySettings;
         }
 
-        #region INotifyPropertyChanged implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-        #endregion
-
         private void ApplySettings(object sender, CancelEventArgs e)
         {
             ThemeManager.ChangeAppStyle(Application.Current,
@@ -73,6 +65,14 @@ namespace ProgramDrawer.UserControls
             Accent = ThemeManager.GetAccent(Properties.Settings.Default.AccentColor);
             AppTheme = ThemeManager.GetAppTheme(Properties.Settings.Default.BaseColor);
         }
+
+        #region INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+        #endregion
     }
 
     public class AppThemeToBoolConverter : IValueConverter
@@ -86,30 +86,5 @@ namespace ProgramDrawer.UserControls
         {
             return (bool)value ? ThemeManager.GetAppTheme("BaseDark") : ThemeManager.GetAppTheme("BaseLight");
         }
-    }
-
-    public class Settings : INotifyPropertyChanged
-    {
-        private bool _darkTheme = true;
-        public bool DarkTheme
-        {
-            get { return _darkTheme; }
-            set { _darkTheme = value; OnPropertyChanged("DarkTheme"); }
-        }
-
-        private Accent _selectedAccent;
-        public Accent SelectedAccent
-        {
-            get { return _selectedAccent; }
-            set { _selectedAccent = value; OnPropertyChanged("SelectedAccent"); }
-        }
-
-        #region PropertyChanged event handler
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
     }
 }
