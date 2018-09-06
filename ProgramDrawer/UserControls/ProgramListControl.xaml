@@ -7,8 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="480">
     <Grid>
-        <!--<ProgressBar x:Name="DownloadProgressBar"  
-                     Minimum="0" Maximum="100" Value="50" Visibility="Visible" Height="10"/>-->
         <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0,5,0,5">
             <StackPanel>
                 <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0"
