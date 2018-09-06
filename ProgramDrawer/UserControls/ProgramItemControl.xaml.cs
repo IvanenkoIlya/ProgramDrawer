@@ -16,15 +16,18 @@ namespace ProgramDrawer.UserControls
     {
         private double fadeTime = 300;
 
+        #region ProgramItemProperty
         public static readonly DependencyProperty ProgramItemProperty =
             DependencyProperty.Register("ProgramItem", typeof(ProgramItemBase), typeof(ProgramItemControl),
                 new FrameworkPropertyMetadata(new ProgramItem("Default Program Name", "")));
         public ProgramItemBase ProgramItem
         {
-            get { return (ProgramItemBase) GetValue(ProgramItemProperty); }
+            get { return (ProgramItemBase)GetValue(ProgramItemProperty); }
             set { SetValue(ProgramItemProperty, value); }
         }
+        #endregion
 
+        #region ParentProgramListProperty
         public static readonly DependencyProperty ParentProgramListProperty =
             DependencyProperty.Register("ParentProgramList", typeof(ItemsControl), typeof(ProgramItemControl),
                 new FrameworkPropertyMetadata(null));
@@ -33,14 +36,11 @@ namespace ProgramDrawer.UserControls
             get { return (ItemsControl)GetValue(ParentProgramListProperty); }
             set { SetValue(ParentProgramListProperty, value); }
         }
+        #endregion
 
-        public event EventHandler Delete;
         private void DeleteProgramItem(object sender, MouseButtonEventArgs e)
         {
-            //var temp = 
-            //var temp = ((ContentPresenter)this.VisualParent).VisualParent;.VisualParent.TemplatedParent;
             ((ListCollectionView) ParentProgramList.ItemsSource).Remove(ProgramItem);
-            Delete?.Invoke(sender, new EventArgs());
         }
 
         public ProgramItemControl()

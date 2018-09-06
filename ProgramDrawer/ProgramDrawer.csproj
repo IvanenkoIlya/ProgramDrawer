@@ -167,16 +167,13 @@
     <Resource Include="Resources\Icons\SystemTrayIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ProgramBanners\default.png">
+    <EmbeddedResource Include="Resources\ProgramBanners\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\WindowsIcons-license.txt" />
     <Resource Include="Resources\Fonts\Entypo-license.txt" />
-    <Content Include="Resources\Icons\settings-default.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

@@ -53,10 +53,12 @@ namespace ProgramDrawer.Model
         public abstract object Clone();
         public abstract void LaunchProgram(object sender, RoutedEventArgs e);
 
+        #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
+        #endregion
     }
 }
