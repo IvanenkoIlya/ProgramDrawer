@@ -1,16 +1,26 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace ProgramDrawer.Model
 {
-    public abstract class ProgramItemBase
+    public abstract class ProgramItemBase : INotifyPropertyChanged, ICloneable
     {
-        public string ProgramName { get; set; }
+        #region ProgramName
+        private string _programName;
+        public string ProgramName
+        {
+            get { return _programName; }
+            set { _programName = value; OnPropertyChanged("ProgramName"); }
+        }
+        #endregion
 
+        #region ImageLocation
         private string _imageLocation;
+
         public string ImageLocation
         {
             get { return _imageLocation; }
@@ -18,8 +28,11 @@ namespace ProgramDrawer.Model
             {
                 _imageLocation = value;
                 UpdateBannerImage();
+                OnPropertyChanged("ImageLocation");
+                OnPropertyChanged("BannerImage");
             }
         }
+        #endregion
 
         [JsonIgnore]
         public BitmapImage BannerImage { get; private set; }
@@ -37,7 +50,15 @@ namespace ProgramDrawer.Model
             }
         }
 
+        public abstract object Clone();
         public abstract void LaunchProgram(object sender, RoutedEventArgs e);
-        public abstract void ChangeProperties(object sender, RoutedEventArgs e);
+
+        #region INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string property)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+        #endregion
     }
 }

@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="ProgramDrawer.UserControls.ProgramItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProgramDrawer.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="225" d:DesignWidth="480">
+    <Grid>
+        <Grid Name="DisplayProgramItemGrid" Visibility="Visible">
+            <Grid.Resources>
+                <Duration x:Key="AnimationDuration">0:0:0.150</Duration>
+            </Grid.Resources>
+            <Rectangle Name="ProgramBody" Width="460" Height="215" Margin="10,5,10,5" RadiusX="10" RadiusY="10" Opacity="0.9"
+                       Stroke="{DynamicResource AccentColorBrush}"  StrokeThickness="3" MouseLeftButtonDown="LaunchProgram" Tag="{Binding .}">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="{Binding BannerImage}"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Grid Name="ProgramLabel" Height="40" Opacity="0" VerticalAlignment="Bottom" Margin="10,0,10,5">
+                <Border CornerRadius="0,0,10,10" BorderThickness="0" Background="{DynamicResource AccentColorBrush}" Opacity="0.9"/>
+                <Rectangle Name="DeleteIcon" VerticalAlignment="Center" HorizontalAlignment="Left" Width="25" Height="25" 
+                       Margin="10,0,0,0" MouseDown="DeleteProgramItem" Fill="{DynamicResource WhiteColorBrush}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_delete}" />
+                    </Rectangle.OpacityMask>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Height" To="22" Duration="{DynamicResource AnimationDuration}" />
+                                        <DoubleAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Width" To="22" Duration="{DynamicResource AnimationDuration}" />
+                                        <ThicknessAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Margin" To="12,0,0,0" Duration="{DynamicResource AnimationDuration}" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Height" To="25" Duration="{DynamicResource AnimationDuration}" />
+                                        <DoubleAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Width" To="25" Duration="{DynamicResource AnimationDuration}" />
+                                        <ThicknessAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Margin" To="10,0,0,0" Duration="{DynamicResource AnimationDuration}" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+                <Label Content="{Binding ProgramName}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                       FontFamily="Tw Cen MT Condensed Extra Bold" FontSize="25" Margin="35,0,35,0" MaxWidth="500" />
+                <Rectangle Name="SettingsIcon" VerticalAlignment="Center" HorizontalAlignment="Right" Width="25" Height="25" 
+                       Margin="0,0,10,0" MouseDown="EditProperties" Fill="{DynamicResource WhiteColorBrush}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Visual="{StaticResource appbar_settings}" />
+                    </Rectangle.OpacityMask>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Height" To="22" Duration="{DynamicResource AnimationDuration}" />
+                                        <DoubleAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Width" To="22" Duration="{DynamicResource AnimationDuration}" />
+                                        <ThicknessAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Margin" To="0,0,12,0" Duration="{DynamicResource AnimationDuration}" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Height" To="25" Duration="{DynamicResource AnimationDuration}" />
+                                        <DoubleAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Width" To="25" Duration="{DynamicResource AnimationDuration}" />
+                                        <ThicknessAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Margin" To="0,0,10,0" Duration="{DynamicResource AnimationDuration}" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+            </Grid>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Height" To="223" Duration="{DynamicResource AnimationDuration}" />
+                                <DoubleAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Width" To="474" Duration="{DynamicResource AnimationDuration}" />
+                                <ThicknessAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Margin" To="3,1,3,1" Duration="{DynamicResource AnimationDuration}" />
+
+                                <DoubleAnimation Storyboard.TargetName="ProgramLabel" Storyboard.TargetProperty="Opacity" To="1" Duration="{DynamicResource AnimationDuration}" />
+                                <ThicknessAnimation Storyboard.TargetName="ProgramLabel" Storyboard.TargetProperty="Margin" To="3,1,3,1" Duration="{DynamicResource AnimationDuration}" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Height" To="215" Duration="{DynamicResource AnimationDuration}" />
+                                <DoubleAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Width" To="460" Duration="{DynamicResource AnimationDuration}" />
+                                <ThicknessAnimation Storyboard.TargetName="ProgramBody" Storyboard.TargetProperty="Margin" To="10,5,10,5" Duration="{DynamicResource AnimationDuration}" />
+
+                                <DoubleAnimation Storyboard.TargetName="ProgramLabel" Storyboard.TargetProperty="Opacity" To="0" Duration="{DynamicResource AnimationDuration}" />
+                                <ThicknessAnimation Storyboard.TargetName="ProgramLabel" Storyboard.TargetProperty="Margin" To="10,5,10,5" Duration="{DynamicResource AnimationDuration}" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Grid.Triggers>
+        </Grid>
+        <Grid Name="EditProgramItemGrid" Visibility="Hidden">
+            <!--<local:EditableProgramItemControl ProgramItem="{Binding ProgramItem}"/>-->
+        </Grid>
+    </Grid>
+</UserControl>

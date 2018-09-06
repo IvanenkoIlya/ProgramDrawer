@@ -86,11 +86,11 @@
     <Compile Include="Model\ProgramItem.cs" />
     <Compile Include="Model\ProgramItemBase.cs" />
     <Compile Include="Model\SteamProgramItem.cs" />
-    <Compile Include="Resources\Templates\ProgramItemTemplate.xaml.cs">
-      <DependentUpon>ProgramItemTemplate.xaml</DependentUpon>
+    <Compile Include="UserControls\EditableProgramItemControl.xaml.cs">
+      <DependentUpon>EditableProgramItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\AddProgramControl.xaml.cs">
-      <DependentUpon>AddProgramControl.xaml</DependentUpon>
+    <Compile Include="UserControls\ProgramItemControl.xaml.cs">
+      <DependentUpon>ProgramItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ProgramListControl.xaml.cs">
       <DependentUpon>ProgramListControl.xaml</DependentUpon>
@@ -118,15 +118,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\Styles\ProgressBarStyle.xaml">
+    <Page Include="UserControls\EditableProgramItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Templates\ProgramItemTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\AddProgramControl.xaml">
+    <Page Include="UserControls\ProgramItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,16 +167,13 @@
     <Resource Include="Resources\Icons\SystemTrayIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ProgramBanners\default.png">
+    <EmbeddedResource Include="Resources\ProgramBanners\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\WindowsIcons-license.txt" />
     <Resource Include="Resources\Fonts\Entypo-license.txt" />
-    <Content Include="Resources\Icons\settings-default.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

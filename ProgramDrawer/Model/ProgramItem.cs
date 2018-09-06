@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 
@@ -7,7 +8,14 @@ namespace ProgramDrawer.Model
 {
     public class ProgramItem : ProgramItemBase
     {
-        public string ProgramLocation { get; set; }
+        #region ProgramLocation
+        private string _programLocation;
+        public string ProgramLocation
+        {
+            get { return _programLocation; }
+            set { _programLocation = value; OnPropertyChanged("ProgramLocation"); }
+        }
+        #endregion
 
         [JsonConstructor]    
         public ProgramItem(string ProgramName, string ProgramLocation, string ImageLocation = "")
@@ -19,20 +27,23 @@ namespace ProgramDrawer.Model
             UpdateBannerImage();
         }
 
-        public override void ChangeProperties(object sender, RoutedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override void LaunchProgram(object sender, RoutedEventArgs e)
         {
             try
             {
                 Process.Start(ProgramLocation);
-            } catch(InvalidOperationException ex)
+            } catch(InvalidOperationException invalidException)
             {
                 // TODO handle exception and possibly animate
-            }   
+            } catch(Win32Exception fileNotFoundException)
+            {
+                //TODO file not found
+            }
+        }
+
+        public override object Clone()
+        {
+            return new ProgramItem(ProgramName, ProgramLocation, ImageLocation);
         }
     }
 }
