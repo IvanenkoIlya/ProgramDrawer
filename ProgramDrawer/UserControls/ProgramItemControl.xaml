@@ -24,6 +24,30 @@
                     <Rectangle.OpacityMask>
                         <VisualBrush Visual="{StaticResource appbar_delete}" />
                     </Rectangle.OpacityMask>
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Height" To="22" Duration="{DynamicResource AnimationDuration}" />
+                                        <DoubleAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Width" To="22" Duration="{DynamicResource AnimationDuration}" />
+                                        <ThicknessAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Margin" To="12,0,0,0" Duration="{DynamicResource AnimationDuration}" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Height" To="25" Duration="{DynamicResource AnimationDuration}" />
+                                        <DoubleAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Width" To="25" Duration="{DynamicResource AnimationDuration}" />
+                                        <ThicknessAnimation Storyboard.TargetName="DeleteIcon" Storyboard.TargetProperty="Margin" To="10,0,0,0" Duration="{DynamicResource AnimationDuration}" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
                 </Rectangle>
                 <Label Content="{Binding ProgramName}" HorizontalAlignment="Center" VerticalAlignment="Top"
                        FontFamily="Tw Cen MT Condensed Extra Bold" FontSize="25" Margin="35,0,35,0" MaxWidth="500" />
@@ -37,7 +61,9 @@
                             <EventTrigger.Actions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ThicknessAnimation />
+                                        <DoubleAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Height" To="22" Duration="{DynamicResource AnimationDuration}" />
+                                        <DoubleAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Width" To="22" Duration="{DynamicResource AnimationDuration}" />
+                                        <ThicknessAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Margin" To="0,0,12,0" Duration="{DynamicResource AnimationDuration}" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger.Actions>
@@ -46,7 +72,9 @@
                             <EventTrigger.Actions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <ThicknessAnimation Storyboard.TargetProperty="Padding" To="0,0,0,0"/>
+                                        <DoubleAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Height" To="25" Duration="{DynamicResource AnimationDuration}" />
+                                        <DoubleAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Width" To="25" Duration="{DynamicResource AnimationDuration}" />
+                                        <ThicknessAnimation Storyboard.TargetName="SettingsIcon" Storyboard.TargetProperty="Margin" To="0,0,10,0" Duration="{DynamicResource AnimationDuration}" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger.Actions>

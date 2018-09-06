@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using ProgramDrawer.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -65,6 +66,8 @@ namespace ProgramDrawer.UserControls
 
             ProgramItems = CollectionViewSource.GetDefaultView(_programItems) as ListCollectionView;
             ProgramItems.Filter = (x => ((ProgramItemBase)x).ProgramName.ToLower().Contains(_searchString.ToLower()));
+            ProgramItems.SortDescriptions.Add(
+                new SortDescription("ProgramName", ListSortDirection.Ascending));
 
             ProgramList.ItemsSource = ProgramItems;
 
@@ -87,7 +90,7 @@ namespace ProgramDrawer.UserControls
             else
             {
                 //TODO This needs to be moved out elsewhere
-                _programItems = new List<ProgramItemBase>();                
+                _programItems = new List<ProgramItemBase>();   
 
                 string steamDirectory = "";
 
@@ -144,7 +147,7 @@ namespace ProgramDrawer.UserControls
 
         private void CreateNewProgramItem(object sender, MouseButtonEventArgs e)
         {
-            EditableProgramItemControl addProgramControl = new EditableProgramItemControl();
+            EditableProgramItemControl addProgramControl = new EditableProgramItemControl(new ProgramItem("Default name", ""));
 
             addProgramControl.Cancel += OnCancel;
             addProgramControl.Save += OnSave;

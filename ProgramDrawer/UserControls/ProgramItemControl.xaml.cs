@@ -2,7 +2,9 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace ProgramDrawer.UserControls
@@ -21,6 +23,24 @@ namespace ProgramDrawer.UserControls
         {
             get { return (ProgramItemBase) GetValue(ProgramItemProperty); }
             set { SetValue(ProgramItemProperty, value); }
+        }
+
+        public static readonly DependencyProperty ParentProgramListProperty =
+            DependencyProperty.Register("ParentProgramList", typeof(ItemsControl), typeof(ProgramItemControl),
+                new FrameworkPropertyMetadata(null));
+        public ItemsControl ParentProgramList
+        {
+            get { return (ItemsControl)GetValue(ParentProgramListProperty); }
+            set { SetValue(ParentProgramListProperty, value); }
+        }
+
+        public event EventHandler Delete;
+        private void DeleteProgramItem(object sender, MouseButtonEventArgs e)
+        {
+            //var temp = 
+            //var temp = ((ContentPresenter)this.VisualParent).VisualParent;.VisualParent.TemplatedParent;
+            ((ListCollectionView) ParentProgramList.ItemsSource).Remove(ProgramItem);
+            Delete?.Invoke(sender, new EventArgs());
         }
 
         public ProgramItemControl()
@@ -66,6 +86,7 @@ namespace ProgramDrawer.UserControls
 
             if (update is ProgramItem)
                 (ProgramItem as ProgramItem).ProgramLocation = (update as ProgramItem).ProgramLocation;
+            ((ListCollectionView)ParentProgramList.ItemsSource).Refresh();
 
             CloseEditGrid();
         }
@@ -79,11 +100,6 @@ namespace ProgramDrawer.UserControls
             fade.Completed += (send, args) => { EditProgramItemGrid.Visibility = Visibility.Hidden; };
 
             EditProgramItemGrid.ApplyAnimationClock(OpacityProperty, fade.CreateClock());
-        }
-
-        private void DeleteProgramItem(object sender, MouseButtonEventArgs e)
-        {
-            
         }
     }
 }
