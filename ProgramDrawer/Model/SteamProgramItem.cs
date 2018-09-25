@@ -35,6 +35,7 @@ namespace ProgramDrawer.Model
                 Process.Start($@"steam://rungameid/{AppID}");
             } catch( Win32Exception fileNotFoundException)
             {
+                Debug.WriteLine(fileNotFoundException);
                 //TODO file not found
             }       
         }

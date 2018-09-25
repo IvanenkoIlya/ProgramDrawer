@@ -100,9 +100,6 @@
     <Compile Include="UserControls\EditableProgramItemControl.xaml.cs">
       <DependentUpon>EditableProgramItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Templates\SoundDeviceTemplate.xaml.cs">
-      <DependentUpon>SoundDeviceTemplate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ProgramItemControl.xaml.cs">
       <DependentUpon>ProgramItemControl.xaml</DependentUpon>
     </Compile>
@@ -140,14 +137,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ProgramItemControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-	<Page Include="Resources\Templates\SoundDeviceTemplate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\AddProgramControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,9 +185,9 @@
     <Resource Include="Resources\Icons\SystemTrayIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ProgramBanners\default.png">
+    <Resource Include="Resources\ProgramBanners\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

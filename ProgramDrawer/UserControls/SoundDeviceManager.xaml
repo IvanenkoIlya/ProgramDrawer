@@ -4,78 +4,46 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProgramDrawer.UserControls"
-             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="ProgramDrawer.UserControls.SoundDeviceManager"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
+             x:Class="ProgramDrawer.UserControls.SoundDeviceManager"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="480">
     <UserControl.Resources>
-        <Style x:Key="ListViewItemStyle1" TargetType="{x:Type ListViewItem}">
+        <local:DeviceTypeToIconConverter x:Key="DeviceToIconConverter" />
+        <Style x:Key="MyListViewItemStyle" TargetType="{x:Type ListViewItem}">
             <Setter Property="Background" Value="{DynamicResource WhiteBrush}"/>
             <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="{DynamicResource AccentColorBrush}"/>
-            <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
-            <Setter Property="mah:ItemHelper.DisabledForegroundBrush" Value="{DynamicResource GrayNormalBrush}"/>
-            <Setter Property="mah:ItemHelper.DisabledSelectedBackgroundBrush" Value="{DynamicResource GrayBrush7}"/>
-            <Setter Property="mah:ItemHelper.DisabledSelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
-            <Setter Property="mah:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource AccentColorBrush3}"/>
-            <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush}"/>
-            <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="{DynamicResource AccentColorBrush2}"/>
-            <Setter Property="mah:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentSelectedColorBrush}"/>
             <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Margin" Value="4"/>
             <Setter Property="MinHeight" Value="25"/>
             <Setter Property="SnapsToDevicePixels" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListViewItem}">
-                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" CornerRadius="5">
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5"
+                                Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" >
                             <Grid>
-                                <GridViewRowPresenter x:Name="PART_RowPresenter" Columns="{TemplateBinding GridView.ColumnCollection}" Content="{TemplateBinding Content}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                <ContentPresenter x:Name="PART_ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <Rectangle Height="55" Width="55" Margin="7">
+                                    <Rectangle.Fill>
+                                        <!--<VisualBrush Visual="{StaticResource appbar_question}"/>-->
+                                        <VisualBrush Visual="{Binding Icon, Converter={StaticResource DeviceToIconConverter}}"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="GridView.ColumnCollection" Value="{x:Null}">
-                                <Setter Property="Visibility" TargetName="PART_ContentPresenter" Value="Visible"/>
-                                <Setter Property="Visibility" TargetName="PART_RowPresenter" Value="Collapsed"/>
-                            </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.SelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource HighlightBrush}"/>
+                                <Setter Property="BorderThickness" TargetName="Border" Value="3"/>
+                                <Setter Property="Margin" Value="3" />
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource AccentColorBrush}"/>
                             </Trigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="True"/>
-                                    <Condition Property="Selector.IsSelectionActive" Value="True"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource HighlightBrush}"/>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsMouseOver" Value="True"/>
-                                    <Condition Property="IsSelected" Value="True"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            </MultiTrigger>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
                                     <Condition Property="IsMouseOver" Value="True"/>
                                     <Condition Property="IsSelected" Value="False"/>
                                 </MultiTrigger.Conditions>
-                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.HoverBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"/>
-                            </MultiTrigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                            </Trigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsEnabled" Value="False"/>
-                                    <Condition Property="IsSelected" Value="True"/>
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Foreground" Value="{Binding (mah:ItemHelper.DisabledSelectedForegroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                                <Setter Property="Background" TargetName="Border" Value="{Binding (mah:ItemHelper.DisabledSelectedBackgroundBrush), Mode=OneWay, RelativeSource={RelativeSource Self}}"/>
-                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource GrayBrush7}"/>
+                                <Setter Property="BorderBrush" TargetName="Border" Value="{DynamicResource AccentColorBrush3}" />
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -84,16 +52,15 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
     </UserControl.Resources>
-    <!--TODO Make this work-->
     <StackPanel Orientation="Vertical">
-        <Grid >
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />
-                <RowDefinition Height="170" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label FontSize="15" Content="Test Audio" Padding="0,0,0,2" Grid.Row="0" Margin="0"/>
+            <Label FontSize="15" Content="{Binding AudioTitle}" Padding="0,0,0,2" Grid.Row="0" Margin="0"/>
             <ScrollViewer PanningMode="HorizontalOnly" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Grid.Row="1">
-                <ListView x:Name="TestName" ItemTemplate="{DynamicResource SoundDeviceTemplate}" ItemsSource="{Binding AudioDevices}">
+                <ListView x:Name="TestName" ItemsSource="{Binding AudioDeviceList}" ItemContainerStyle="{StaticResource MyListViewItemStyle}" SelectedIndex="0" BorderThickness="0,1">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
@@ -102,53 +69,20 @@
                 </ListView>
             </ScrollViewer>
         </Grid>
-        <Grid Name="DeviceInfoGrid" Visibility="Collapsed" Height="55">
+        <Grid Name="DeviceInfoGrid" Visibility="Visible" Height="55">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Audio device name" HorizontalAlignment="Center"/>
+            <Label Grid.Row="0" Content="{Binding ElementName=TestName, Path=SelectedItem.FullName}" HorizontalAlignment="Center"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" FontSize="14" Content="Volume" VerticalAlignment="Center"/>
-                <Slider Grid.Column="1" Minimum="0" Maximum="100" HorizontalAlignment="Stretch" Margin="0,0,5,0" />
+                <Label Grid.Column="0" FontSize="14" Content="Volume" VerticalAlignment="Center" />
+                <Slider Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding ElementName=TestName, Path=SelectedItem.Volume}" HorizontalAlignment="Stretch" Margin="0,0,5,0" />
             </Grid>
         </Grid>
     </StackPanel>
-    
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="55" />
-        </Grid.RowDefinitions>
-        <Label FontSize="15" Content="Test Audio" Padding="0,0,0,2" Grid.Row="0" Margin="0"/>
-        <ScrollViewer PanningMode="HorizontalOnly" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Grid.Row="1">
-            <ListView x:Name="TestName" ItemTemplate="{DynamicResource SoundDeviceTemplate}" ItemsSource="{Binding AudioDevices}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
-        </ScrollViewer>
-        <Grid Name="DeviceInfoGrid" Grid.Row="2" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="25" />
-                <RowDefinition Height="30" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Audio device name" HorizontalAlignment="Center"/>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" FontSize="14" Content="Volume" VerticalAlignment="Center"/>
-                <Slider Grid.Column="1" Minimum="0" Maximum="100" HorizontalAlignment="Stretch" Margin="0,0,5,0" />
-            </Grid>
-        </Grid>
-    </Grid>-->
 </UserControl>

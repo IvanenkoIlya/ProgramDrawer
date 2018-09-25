@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -45,7 +46,10 @@ namespace ProgramDrawer.UserControls
             DataContext = this;
             InitializeComponent();
 
-            OutputDevices.AudioDevices = new ObservableCollection<Device>(new CoreAudioController().GetPlaybackDevices());
+            OutputDevices.AudioDeviceList = new ObservableCollection<Device>(new CoreAudioController().GetPlaybackDevices().Where(x => x.State == DeviceState.Active));
+            InputDevices.AudioDeviceList = new ObservableCollection<Device>(new CoreAudioController().GetCaptureDevices().Where(x => x.State == DeviceState.Active));
+
+            //OutputDevices.AudioDevices = new ObservableCollection<Device>(new CoreAudioController().GetPlaybackDevices());
 
             Properties.Settings.Default.SettingsSaving += ApplySettings;
         }

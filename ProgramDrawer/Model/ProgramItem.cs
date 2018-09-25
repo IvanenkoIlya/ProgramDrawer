@@ -34,10 +34,11 @@ namespace ProgramDrawer.Model
                 Process.Start(ProgramLocation);
             } catch(InvalidOperationException invalidException)
             {
-                Debug.WriteLine(ex);
+                Debug.WriteLine(invalidException);
                 // TODO handle exception and possibly animate
             } catch(Win32Exception fileNotFoundException)
             {
+                Debug.WriteLine(fileNotFoundException);
                 //TODO file not found
             }
         }
