@@ -112,6 +112,9 @@
     <Compile Include="UserControls\SoundDeviceManager.xaml.cs">
       <DependentUpon>SoundDeviceManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SoundDevicesControl.xaml.cs">
+      <DependentUpon>SoundDevicesControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,6 +152,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SoundDeviceManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SoundDevicesControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

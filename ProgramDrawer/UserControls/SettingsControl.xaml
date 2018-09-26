@@ -15,13 +15,11 @@
         <Controls:ToggleSwitch Header="Theme type" OnLabel="Dark" OffLabel="Light" Margin="0,5,0,0" HorizontalAlignment="Left"
                                Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}"
                                IsChecked="{Binding AppTheme, Converter={StaticResource AppThemeConverter}}" />
-        <Controls:ToggleSwitch Header="Toggle setting" OnLabel="On" OffLabel="Off" Margin="0,5,0,5" HorizontalAlignment="Left"
-                               Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />
+        <!--<Controls:ToggleSwitch Header="Toggle setting" OnLabel="On" OffLabel="Off" Margin="0,5,0,5" HorizontalAlignment="Left"
+                               Style="{DynamicResource MahApps.Metro.Styles.ToggleSwitch.Win10}" />-->
         <Label FontSize="15" Content="Accent color" Padding="0,0,0,2"/>
         <Controls:SplitButton Height="10" Width="100" ArrowBrush="{DynamicResource AccentColorBrush}" BorderBrush="{DynamicResource AccentColorBrush}"
                               ItemsSource="{Binding Accents}" DisplayMemberPath="Name" SelectedItem="{Binding Accent}" HorizontalAlignment="Left"/>
-        <local:SoundDeviceManager x:Name="OutputDevices" AudioTitle="Output Devices"/>
-        <local:SoundDeviceManager x:Name="InputDevices" AudioTitle="Input Devices"/>
         <Separator Background="{DynamicResource AccentColorBrush}" Margin="0,10,0,10" />
 
         <StackPanel Orientation="Horizontal">

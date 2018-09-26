@@ -24,9 +24,8 @@
                         <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5"
                                 Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" >
                             <Grid>
-                                <Rectangle Height="55" Width="55" Margin="7">
+                                <Rectangle Height="55" Width="55" Margin="7.5" HorizontalAlignment="Left">
                                     <Rectangle.Fill>
-                                        <!--<VisualBrush Visual="{StaticResource appbar_question}"/>-->
                                         <VisualBrush Visual="{Binding Icon, Converter={StaticResource DeviceToIconConverter}}"/>
                                     </Rectangle.Fill>
                                 </Rectangle>
@@ -61,11 +60,11 @@
             <Label FontSize="15" Content="{Binding AudioTitle}" Padding="0,0,0,2" Grid.Row="0" Margin="0"/>
             <ScrollViewer PanningMode="HorizontalOnly" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden" Grid.Row="1">
                 <ListView x:Name="TestName" ItemsSource="{Binding AudioDeviceList}" ItemContainerStyle="{StaticResource MyListViewItemStyle}" SelectedIndex="0" BorderThickness="0,1">
-                    <ListView.ItemsPanel>
+                    <!--<ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+                    </ListView.ItemsPanel>-->
                 </ListView>
             </ScrollViewer>
         </Grid>

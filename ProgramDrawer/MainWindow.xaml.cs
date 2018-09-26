@@ -65,6 +65,7 @@ namespace ProgramDrawer
 
             mainContents.Add("ProgramList", new ProgramListControl());
             mainContents.Add("Settings", new SettingsControl());
+            mainContents.Add("SoundDevices", new SoundDevicesControl());
 
             MainContentControl.Content = mainContents["ProgramList"];
             
@@ -155,18 +156,19 @@ namespace ProgramDrawer
         }
         #endregion
 
-        private bool toggle;
-        private void UniversalTestButtonClick(object sender, RoutedEventArgs e)
+        private void ProgramListButtonClick(object sender, RoutedEventArgs e)
         {
-            if (toggle)
-            {
-                MainContentControl.Content = mainContents["ProgramList"];
-            }   
-            else
-            {
-                MainContentControl.Content = mainContents["Settings"];
-            }
-            toggle = !toggle;
+            MainContentControl.Content = mainContents["ProgramList"];
+        }
+
+        private void SettingsButtonClick(object sender, RoutedEventArgs e)
+        {
+            MainContentControl.Content = mainContents["Settings"];
+        }
+
+        private void SoundDeviceButtonClick(object sender, RoutedEventArgs e)
+        {
+            MainContentControl.Content = mainContents["SoundDevices"];
         }
 
         private void ToggleLockClick(object sender, RoutedEventArgs e)
@@ -178,6 +180,6 @@ namespace ProgramDrawer
             {
                 LockDrawer();
             }
-        }
+        }   
     }
 }

@@ -18,10 +18,12 @@
             <Controls:Flyout Header="Title" Position="Right" Width="480" Theme="Adapt" Name="MyFlyout" IsOpen="{Binding IsDrawerOpen}" 
                              CloseButtonVisibility="Collapsed" TitleVisibility="Collapsed" >
                 <DockPanel Width="480" Height="{Binding DesktopHeight}" LastChildFill="True">
-                    <Grid x:Name="NavigationBar" Height="90" DockPanel.Dock="Bottom" >
-                        <Button Name="UniversalTestButton" Content="Universal Test Button" Click="UniversalTestButtonClick" Width="240" HorizontalAlignment="Left"/>
-                        <Button Name="ToggleLock" Content="Toggle Lock" Click="ToggleLockClick" Width="240" HorizontalAlignment="Right"/>
-                    </Grid>
+                    <StackPanel x:Name="NavigationBar" Height="90" DockPanel.Dock="Bottom" Orientation="Horizontal" >
+                        <Button Name="ProgramListButton" Content="Programs" Click="ProgramListButtonClick" Width="120" />
+                        <Button Name="SettingsButton" Content="Settings" Click="SettingsButtonClick" Width="120" />
+                        <Button Name="SoundDeviceButton" Content="Sound Devices" Click="SoundDeviceButtonClick" Width="120" />
+                        <Button Name="ToggleLock" Content="Toggle Lock" Click="ToggleLockClick" Width="120" />
+                    </StackPanel>
                     <Grid DockPanel.Dock="Top">
                         <Controls:TransitioningContentControl Name="MainContentControl" Transition="LeftReplace" />
                     </Grid>
