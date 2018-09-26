@@ -1,32 +1,22 @@
 ﻿using AudioSwitcher.AudioApi;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProgramDrawer.UserControls
 {
     /// <summary>
     /// Interaction logic for SoundDeviceManager.xaml
     /// </summary>
-    public partial class SoundDeviceManager : UserControl, INotifyPropertyChanged
+    public partial class SoundDeviceListControl : UserControl, INotifyPropertyChanged
     {
         #region DependencyProperties
         public static readonly DependencyProperty AudioTitleProperty =
-            DependencyProperty.Register("AudioTitle", typeof(string), typeof(SoundDeviceManager),
+            DependencyProperty.Register("AudioTitle", typeof(string), typeof(SoundDeviceListControl),
                 new FrameworkPropertyMetadata(""));
         public string AudioTitle
         {
@@ -35,7 +25,7 @@ namespace ProgramDrawer.UserControls
         }
 
         public static readonly DependencyProperty AudioDeviceListProperty =
-            DependencyProperty.Register("AudioDeviceList", typeof(ObservableCollection<Device>), typeof(SoundDeviceManager),
+            DependencyProperty.Register("AudioDeviceList", typeof(ObservableCollection<Device>), typeof(SoundDeviceListControl),
                 new FrameworkPropertyMetadata(null));
         public ObservableCollection<Device> AudioDeviceList
         {
@@ -46,9 +36,23 @@ namespace ProgramDrawer.UserControls
                 OnPropertyChanged("AudioDeviceList");
             }
         }
+
+        public static readonly DependencyProperty SelectedAudioDeviceProperty =
+            DependencyProperty.Register("SelectedaudioDevice", typeof(Device), typeof(SoundDeviceListControl),
+                new FrameworkPropertyMetadata(null));
+        public Device SelectedAudioDevice
+        {
+            get { return (Device)GetValue(SelectedAudioDeviceProperty); }
+            set
+            {
+                SetValue(SelectedAudioDeviceProperty, value);
+                OnPropertyChanged("SelectedAudioDevice");
+            }
+        }
         #endregion
 
-        public SoundDeviceManager()
+
+        public SoundDeviceListControl()
         {
             DataContext = this;
             InitializeComponent();
@@ -61,13 +65,18 @@ namespace ProgramDrawer.UserControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
         #endregion
+
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ((Device)e.AddedItems[0]).SetAsDefault();
+            ((Device)e.AddedItems[0]).SetAsDefaultCommunications();
+        }
     }
 
     public class DeviceTypeToIconConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            //return Application.Current.FindResource("appbar_3d_3ds");
             if(!(value is DeviceIcon))
                 return Application.Current.FindResource("appbar_question");
 

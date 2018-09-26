@@ -109,8 +109,8 @@
     <Compile Include="UserControls\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SoundDeviceManager.xaml.cs">
-      <DependentUpon>SoundDeviceManager.xaml</DependentUpon>
+    <Compile Include="UserControls\SoundDeviceListControl.xaml.cs">
+      <DependentUpon>SoundDeviceListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SoundDevicesControl.xaml.cs">
       <DependentUpon>SoundDevicesControl.xaml</DependentUpon>
@@ -151,7 +151,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\SoundDeviceManager.xaml">
+    <Page Include="UserControls\SoundDeviceListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
