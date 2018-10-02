@@ -34,6 +34,20 @@ namespace ProgramDrawer.Model
         }
         #endregion
 
+        #region Favorite
+        private bool _favorite;
+
+        public bool Favorite
+        {
+            get { return _favorite; }
+            set
+            {
+                _favorite = value;
+                OnPropertyChanged("Favorite");
+            }
+        }
+        #endregion
+
         [JsonIgnore]
         public BitmapImage BannerImage { get; private set; }
 

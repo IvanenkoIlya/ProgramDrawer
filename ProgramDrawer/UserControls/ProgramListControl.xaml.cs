@@ -67,6 +67,8 @@ namespace ProgramDrawer.UserControls
             ProgramItems = CollectionViewSource.GetDefaultView(_programItems) as ListCollectionView;
             ProgramItems.Filter = (x => ((ProgramItemBase)x).ProgramName.ToLower().Contains(_searchString.ToLower()));
             ProgramItems.SortDescriptions.Add(
+                new SortDescription("Favorite", ListSortDirection.Descending));
+            ProgramItems.SortDescriptions.Add(
                 new SortDescription("ProgramName", ListSortDirection.Ascending));
 
             ProgramList.ItemsSource = ProgramItems;

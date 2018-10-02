@@ -1,5 +1,6 @@
 ﻿using ProgramDrawer.Model;
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -38,19 +39,25 @@ namespace ProgramDrawer.UserControls
         }
         #endregion
 
-        private void DeleteProgramItem(object sender, MouseButtonEventArgs e)
-        {
-            ((ListCollectionView) ParentProgramList.ItemsSource).Remove(ProgramItem);
-        }
-
         public ProgramItemControl()
         {
             InitializeComponent();
         }
 
+        private void ToggleFavorite(object sender, MouseButtonEventArgs e)
+        {
+            ProgramItem.Favorite = !ProgramItem.Favorite;
+            ((ListCollectionView)ParentProgramList.ItemsSource).Refresh();
+        }
+
         private void LaunchProgram(object sender, MouseButtonEventArgs e)
         {
             ProgramItem.LaunchProgram(sender, e);
+        }
+
+        private void DeleteProgramItem(object sender, MouseButtonEventArgs e)
+        {
+            ((ListCollectionView)ParentProgramList.ItemsSource).Remove(ProgramItem);
         }
 
         private void EditProperties(object sender, MouseButtonEventArgs e)
@@ -100,6 +107,26 @@ namespace ProgramDrawer.UserControls
             fade.Completed += (send, args) => { EditProgramItemGrid.Visibility = Visibility.Hidden; };
 
             EditProgramItemGrid.ApplyAnimationClock(OpacityProperty, fade.CreateClock());
+        }
+    }
+
+    public class FavoriteToImageConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool input = false;
+            if (value != null)
+                input = (bool)value;
+
+            if (input)
+                return Application.Current.FindResource("appbar_heart");
+            else
+                return Application.Current.FindResource("appbar_heart_outline");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

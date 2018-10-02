@@ -4,7 +4,6 @@ using ProgramDrawer.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using WinForms = System.Windows.Forms;
@@ -56,7 +55,6 @@ namespace ProgramDrawer
             DataContext = this;
             InitializeComponent();
 
-            notifyIcon = SetupNotifyIcon();
             mainContents = new Dictionary<string, UserControl>();
 
             Left = SystemParameters.WorkArea.Width-480;
@@ -76,6 +74,8 @@ namespace ProgramDrawer
                 Properties.Settings.Default.FirstRun = false;
                 Properties.Settings.Default.Save();
             }
+
+            notifyIcon = SetupNotifyIcon();
         }
 
         private WinForms.NotifyIcon SetupNotifyIcon()
@@ -144,7 +144,7 @@ namespace ProgramDrawer
             rk.Close();
         }
 
-        #region Property Changed event handler
+        #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
