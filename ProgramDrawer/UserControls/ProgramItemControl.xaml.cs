@@ -117,11 +117,7 @@ namespace ProgramDrawer.UserControls
             bool input = false;
             if (value != null)
                 input = (bool)value;
-
-            if (input)
-                return Application.Current.FindResource("appbar_heart");
-            else
-                return Application.Current.FindResource("appbar_heart_outline");
+            return input ? Visibility.Visible : Visibility.Hidden;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
