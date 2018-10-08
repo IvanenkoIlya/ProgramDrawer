@@ -172,9 +172,9 @@
     <Resource Include="Resources\Icons\SystemTrayIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ProgramBanners\default.png">
+    <Resource Include="Resources\ProgramBanners\default.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
