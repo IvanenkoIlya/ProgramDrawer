@@ -88,6 +88,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AnimatedListPanel.cs" />
     <Compile Include="Model\ProgramItem.cs" />
     <Compile Include="Model\ProgramItemBase.cs" />
     <Compile Include="Model\SteamProgramItem.cs" />

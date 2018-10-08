@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:usercontrols="clr-namespace:ProgramDrawer.UserControls"
+             xmlns:programdrawer="clr-namespace:ProgramDrawer"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="480">
     <Grid>
@@ -11,9 +12,16 @@
             <StackPanel>
                 <ItemsControl x:Name="ProgramList" Background="Transparent" BorderThickness="0"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <programdrawer:AnimatedListPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <usercontrols:ProgramItemControl ProgramItem="{Binding}" ParentProgramList="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            <usercontrols:ProgramItemControl ProgramItem="{Binding}" 
+                                    ParentProgramList="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

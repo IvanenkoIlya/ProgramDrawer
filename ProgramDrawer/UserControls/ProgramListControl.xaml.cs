@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using ProgramDrawer.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace ProgramDrawer.UserControls
     {
         private readonly string programFileLocation = Path.Combine(Directory.GetCurrentDirectory(), "programs.json");
 
-        private List<ProgramItemBase> _programItems;
+        private ObservableCollection<ProgramItemBase> _programItems;
         public ListCollectionView ProgramItems;
 
         private string _searchString = "";
@@ -82,7 +83,7 @@ namespace ProgramDrawer.UserControls
             {
                 using (StreamReader sr = new StreamReader(programFileLocation))
                 {
-                    _programItems = JsonConvert.DeserializeObject<List<ProgramItemBase>>(sr.ReadToEnd(), 
+                    _programItems = JsonConvert.DeserializeObject<ObservableCollection<ProgramItemBase>>(sr.ReadToEnd(), 
                         new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.Objects
@@ -92,7 +93,7 @@ namespace ProgramDrawer.UserControls
             else
             {
                 //TODO This needs to be moved out elsewhere
-                _programItems = new List<ProgramItemBase>();   
+                _programItems = new ObservableCollection<ProgramItemBase>();   
 
                 string steamDirectory = "";
 
