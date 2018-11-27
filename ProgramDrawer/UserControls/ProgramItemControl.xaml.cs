@@ -1,4 +1,5 @@
-﻿using ProgramDrawer.Model;
+﻿using AnimatedListView;
+using ProgramDrawer.Model;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -47,7 +48,7 @@ namespace ProgramDrawer.UserControls
         private void ToggleFavorite(object sender, MouseButtonEventArgs e)
         {
             ProgramItem.Favorite = !ProgramItem.Favorite;
-            ((ListCollectionView)ParentProgramList.ItemsSource).Refresh();
+            //((ListCollectionView)ParentProgramList.ItemsSource).Refresh();
         }
 
         private void LaunchProgram(object sender, MouseButtonEventArgs e)
@@ -57,7 +58,7 @@ namespace ProgramDrawer.UserControls
 
         private void DeleteProgramItem(object sender, MouseButtonEventArgs e)
         {
-            ((ListCollectionView)ParentProgramList.ItemsSource).Remove(ProgramItem);
+            ((ObservableCollectionView<ProgramItemBase>)ParentProgramList.ItemsSource).Remove(ProgramItem);
         }
 
         private void EditProperties(object sender, MouseButtonEventArgs e)
@@ -93,7 +94,7 @@ namespace ProgramDrawer.UserControls
 
             if (update is ProgramItem)
                 (ProgramItem as ProgramItem).ProgramLocation = (update as ProgramItem).ProgramLocation;
-            ((ListCollectionView)ParentProgramList.ItemsSource).Refresh();
+            //((ListCollectionView)ParentProgramList.ItemsSource).Refresh();
 
             CloseEditGrid();
         }

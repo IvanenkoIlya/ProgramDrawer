@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using AnimatedListView;
+using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using ProgramDrawer.Model;
@@ -11,7 +12,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 
@@ -23,9 +23,8 @@ namespace ProgramDrawer.UserControls
     public partial class ProgramListControl : UserControl
     {
         private readonly string programFileLocation = Path.Combine(Directory.GetCurrentDirectory(), "programs.json");
-
-        private ObservableCollection<ProgramItemBase> _programItems;
-        public ListCollectionView ProgramItems;
+        
+        public ObservableCollectionView<ProgramItemBase> ProgramItems;
 
         private string _searchString = "";
         public string SearchString
@@ -38,7 +37,7 @@ namespace ProgramDrawer.UserControls
 
                 _searchString = value;
                 ProgramItems.Refresh();
-
+                
                 if (_searchString == "")
                 {
                     SearchBar.ApplyAnimationClock(MarginProperty,
@@ -63,14 +62,11 @@ namespace ProgramDrawer.UserControls
             SearchBar.ApplyAnimationClock(MarginProperty,
                 new ThicknessAnimation(new Thickness(10, -40, 10, 0), TimeSpan.FromMilliseconds(10)).CreateClock());
 
+            ProgramItems = new ObservableCollectionView<ProgramItemBase>();
             LoadProgramList();
-
-            ProgramItems = CollectionViewSource.GetDefaultView(_programItems) as ListCollectionView;
             ProgramItems.Filter = (x => ((ProgramItemBase)x).ProgramName.ToLower().Contains(_searchString.ToLower()));
-            ProgramItems.SortDescriptions.Add(
-                new SortDescription("Favorite", ListSortDirection.Descending));
-            ProgramItems.SortDescriptions.Add(
-                new SortDescription("ProgramName", ListSortDirection.Ascending));
+            ProgramItems.SortDescriptions.Add(new SortDescription("Favorite", ListSortDirection.Descending));
+            ProgramItems.SortDescriptions.Add(new SortDescription("ProgramName", ListSortDirection.Ascending));
 
             ProgramList.ItemsSource = ProgramItems;
 
@@ -83,18 +79,19 @@ namespace ProgramDrawer.UserControls
             {
                 using (StreamReader sr = new StreamReader(programFileLocation))
                 {
-                    _programItems = JsonConvert.DeserializeObject<ObservableCollection<ProgramItemBase>>(sr.ReadToEnd(), 
+                    ObservableCollection<ProgramItemBase> items = JsonConvert.DeserializeObject<ObservableCollection<ProgramItemBase>>(sr.ReadToEnd(), 
                         new JsonSerializerSettings
                         {
                             TypeNameHandling = TypeNameHandling.Objects
                         });
+
+                    foreach (ProgramItemBase item in items)
+                        ProgramItems.Add(item);
                 }
             }
             else
             {
                 //TODO This needs to be moved out elsewhere
-                _programItems = new ObservableCollection<ProgramItemBase>();   
-
                 string steamDirectory = "";
 
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam"))
@@ -112,7 +109,7 @@ namespace ProgramDrawer.UserControls
                     {
                         string programName = GetSteamAppNameFromAcf(keyValue.Value);
 
-                        _programItems.Add(new SteamProgramItem(keyValue.Key, programName));
+                        ProgramItems.Add(new SteamProgramItem(keyValue.Key, programName));
                     }
                 }
             }
@@ -120,7 +117,12 @@ namespace ProgramDrawer.UserControls
 
         public void SaveProgramList(object sender, ExitEventArgs e)
         {
-            string json = JsonConvert.SerializeObject(_programItems, Formatting.Indented,
+            ObservableCollection<ProgramItemBase> items = new ObservableCollection<ProgramItemBase>();
+
+            foreach (ProgramItemBase item in ProgramItems)
+                items.Add(item);
+
+            string json = JsonConvert.SerializeObject(items, Formatting.Indented,
                 new JsonSerializerSettings
                 {
                     TypeNameHandling = TypeNameHandling.Objects,
@@ -167,11 +169,8 @@ namespace ProgramDrawer.UserControls
         {
             EditableProgramItemControl addProgramControl = (sender as EditableProgramItemControl);
 
-            // TODO Animate
-            _programItems.Add(addProgramControl.ProgramItem);
-
-            ProgramItems.Refresh();
-
+            ProgramItems.Add(addProgramControl.ProgramItem);
+            
             AddProgramGrid.Children.Remove(sender as EditableProgramItemControl);
         }
 

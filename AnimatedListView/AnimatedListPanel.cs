@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace ProgramDrawer
+namespace AnimatedListView
 {
     public class AnimatedListPanel : Panel
     {
@@ -108,13 +104,11 @@ namespace ProgramDrawer
                 switch (Orientation)
                 {
                     case Orientation.Vertical:
-                        x = ActualWidth / 2;
-                        y = offset + (child.DesiredSize.Height / 2);
+                        y = offset;
                         offset += child.DesiredSize.Height;
                         break;
                     case Orientation.Horizontal:
-                        x = offset + (child.DesiredSize.Width / 2);
-                        y = ActualHeight / 2;
+                        x = offset;
                         offset += child.DesiredSize.Width;
                         break;
                 }
