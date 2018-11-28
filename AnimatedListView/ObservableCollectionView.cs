@@ -552,7 +552,7 @@ namespace AnimatedListView
                             break;
                         }
                         else if ((compare > 0 && e.Current.Direction == ListSortDirection.Ascending) ||
-                            (compare < 0 && e.Current.Direction == ListSortDirection.Descending))
+                                 (compare < 0 && e.Current.Direction == ListSortDirection.Descending))
                         {
                             e.Reset();
                             break;
