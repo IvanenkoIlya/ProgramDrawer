@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace ProgramDrawer.UserControls
@@ -48,7 +47,6 @@ namespace ProgramDrawer.UserControls
         private void ToggleFavorite(object sender, MouseButtonEventArgs e)
         {
             ProgramItem.Favorite = !ProgramItem.Favorite;
-            //((ListCollectionView)ParentProgramList.ItemsSource).Refresh();
         }
 
         private void LaunchProgram(object sender, MouseButtonEventArgs e)
@@ -94,7 +92,6 @@ namespace ProgramDrawer.UserControls
 
             if (update is ProgramItem)
                 (ProgramItem as ProgramItem).ProgramLocation = (update as ProgramItem).ProgramLocation;
-            //((ListCollectionView)ParentProgramList.ItemsSource).Refresh();
 
             CloseEditGrid();
         }

@@ -91,27 +91,8 @@ namespace ProgramDrawer.UserControls
             }
             else
             {
-                //TODO This needs to be moved out elsewhere
-                string steamDirectory = "";
-
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam"))
-                {
-                    if (key != null)
-                    {
-                        steamDirectory = key.GetValue("SteamPath").ToString().Replace("/", @"\");
-                    }
-                }
-
-                if(steamDirectory != "")
-                {
-                    Dictionary<int,string> appIDs = GetInstalledSteamAppIds(steamDirectory);
-                    foreach(KeyValuePair<int,string> keyValue in appIDs)
-                    {
-                        string programName = GetSteamAppNameFromAcf(keyValue.Value);
-
-                        ProgramItems.Add(new SteamProgramItem(keyValue.Key, programName));
-                    }
-                }
+                foreach(ProgramItemBase item in SteamBannerDownloader.GetSteamProgramItems())
+                    ProgramItems.Add(item);
             }
         }
 
@@ -172,42 +153,6 @@ namespace ProgramDrawer.UserControls
             ProgramItems.Add(addProgramControl.ProgramItem);
             
             AddProgramGrid.Children.Remove(sender as EditableProgramItemControl);
-        }
-
-        private Dictionary<int,string> GetInstalledSteamAppIds(string steamInstallLocation)
-        {
-            List<string> acfFiles = Directory.EnumerateFiles(steamInstallLocation + @"\steamapps")
-                .Where(f => Regex.Match(Path.GetFileName(f), @"appmanifest_(\d*).acf").Success).ToList();
-
-            Dictionary<int, string> result = new Dictionary<int, string>();
-
-            foreach(string file in acfFiles)
-            {
-                result.Add(Int32.Parse(Regex.Match(Path.GetFileName(file), @"appmanifest_(\d*).acf").Groups[1].Value), file);
-            }
-
-            result.Remove(228980); // This is Steamworks Common Redistributables, not actually a valid game
-
-            return result;
-        }
-
-        private string GetSteamAppNameFromAcf(string file)
-        {
-            using (StreamReader sr = new StreamReader(file))
-            {
-                string line;
-
-                while((line = sr.ReadLine()) != null)
-                {
-                    if (line.Contains("\"name\""))
-                    {
-                        string[] parts = line.Split('\"');
-                        return parts[3];
-                    }
-                }
-            }
-
-            return "";
         }
     }
 }
