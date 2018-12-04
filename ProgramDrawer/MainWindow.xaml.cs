@@ -69,7 +69,7 @@ namespace ProgramDrawer
             
             if(Properties.Settings.Default.FirstRun)
             {
-                // TODO replace with tutorial window on how to set to allways visible
+                // TODO replace with tutorial window on how to set to always visible
                 // Process.Start("ms-settings:taskbar");
                 Properties.Settings.Default.FirstRun = false;
                 Properties.Settings.Default.Save();

@@ -16,7 +16,7 @@ namespace ProgramDrawer.UserControls
     public partial class ProgramItemControl : UserControl
     {
         private double fadeTime = 300;
-
+        
         #region ProgramItemProperty
         public static readonly DependencyProperty ProgramItemProperty =
             DependencyProperty.Register("ProgramItem", typeof(ProgramItemBase), typeof(ProgramItemControl),

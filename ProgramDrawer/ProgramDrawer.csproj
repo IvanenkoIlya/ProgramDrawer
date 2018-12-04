@@ -91,6 +91,7 @@
     <Compile Include="Model\ProgramItem.cs" />
     <Compile Include="Model\ProgramItemBase.cs" />
     <Compile Include="Model\SteamProgramItem.cs" />
+    <Compile Include="SteamBannerDownloader.cs" />
     <Compile Include="UserControls\EditableProgramItemControl.xaml.cs">
       <DependentUpon>EditableProgramItemControl.xaml</DependentUpon>
     </Compile>
